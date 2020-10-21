@@ -40,7 +40,7 @@ const slice = createSlice({
         userReceived: (user, action) => {
             user.name = action.payload.name;
             user.user = action.payload.user;
-            // TODO: Need to securely store token
+            //localStorage.setItem('token', action.payload.token);
             user.token = action.payload.token
             user.loading = false;
             user.lastFetch = Date.now();

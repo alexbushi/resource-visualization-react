@@ -6,6 +6,8 @@
 .pnp.js
 
 /src/components/loginConstants.js
+/src/components/withTooltip.jsx
+/src/components/Resource.jsx
 
 # testing
 /coverage

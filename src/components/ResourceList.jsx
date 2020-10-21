@@ -30,7 +30,6 @@ class ResourceList extends Component {
 }
 
 // state is state of the store
-// resources becomes props of the component
 // returning an object
 const mapStateToProps = state => ({
     resources: state.entities.resources.list,
@@ -39,7 +38,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    // object where attribute is a function
     loadResources: () => dispatch(loadResources()),
     loginUser: (user, password) => dispatch(loginUser(user, password))
 });
