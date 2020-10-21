@@ -2,10 +2,11 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { loadResources } from '../store/resources';
 import { loginUser } from '../store/user';
+import { userName, password } from 
 
 class Resources extends Component {
     componentDidMount() {
-        this.props.loginUser('alexdev', 'developer20');
+        this.props.loginUser(userName, password);
         this.interval = setInterval(() => this.props.loadResources(), 5000);
     }
     

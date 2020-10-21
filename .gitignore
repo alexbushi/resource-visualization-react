@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/src/components/loginConstants.js
+
 # testing
 /coverage
 
