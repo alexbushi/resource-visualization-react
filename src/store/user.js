@@ -84,7 +84,3 @@ export const logoutUser = (user, name, token) => (dispatch, getState) => {
         })
     );
 };
-
-export const getTimerInvervals = () => (dispatch, getState) => {
-    return getState().entities.user.timerIntervals;
-}

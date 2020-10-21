@@ -1,21 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { loadResources } from '../store/resources';
 import { loginUser } from '../store/user';
 
 class Resources extends Component {
     componentDidMount() {
-        this.props.loginUser('username', 'password');
-        setTimeout(() => {this.props.loadResources()}, 500);
+        this.props.loginUser('alexdev', 'developer20');
+        this.interval = setInterval(() => this.props.loadResources(), 5000);
+    }
+    
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {
         return (
-            <ul>
-                {this.props.resources.map((resource) => (
-                    <li key={resource.evseId}>{resource.resourceStatus}</li>
-                ))}
-            </ul>
+            <Fragment>
+                <ul>
+                    {this.props.resources.map((resource) => (
+                        <li key={resource.evseId}>{`${resource.resourceStatus} ${resource.realPower}`}</li>
+                    ))}
+                </ul>
+                <div>{this.props.loadingResources.toString()}</div>
+            </Fragment>
+            
         )
     }
 }
@@ -25,6 +33,7 @@ class Resources extends Component {
 // returning an object
 const mapStateToProps = state => ({
     resources: state.entities.resources.list,
+    loadingResources: state.entities.resources.loading,
     users: state.entities.user
 });
 
