@@ -1,8 +1,7 @@
 // Slice of our store
-import moment from 'moment';
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from './middleware/networkCallActions';
-import { statusUrl, cacheValidTime } from './constants';
+import { statusUrl } from './constants';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Reducer (creates an action also)

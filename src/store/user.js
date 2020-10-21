@@ -32,10 +32,10 @@ const slice = createSlice({
             user.loading = true;
         },
         userLoggedOut: (user, action) => {
-            user.name = null,
-            user.token = null,
-            user.user = null,
-            user.timerIntervals = null
+            //user.name = null,
+            // user.token = null,
+            // user.user = null,
+            // user.timerIntervals = null
         },
         userReceived: (user, action) => {
             user.name = action.payload.name;
