@@ -22,11 +22,14 @@ const slice = createSlice({
             powerPercent: 10,
         },
         loading: false,
-        lastFetch: null
+        lastFetch: null,
+        networkErrors: [],
+        loginErrors: []
     },
     reducers: {
         userRequestFailed: (user, action) => {
             user.loading = false;
+            user.networkErrors = action.payload;
         },
         userRequested: (user, action) => {
             user.loading = true;
@@ -38,11 +41,18 @@ const slice = createSlice({
             // user.timerIntervals = null
         },
         userReceived: (user, action) => {
-            user.name = action.payload.name;
-            user.user = action.payload.user;
-            //localStorage.setItem('token', action.payload.token);
-            user.token = action.payload.token
+            if (action.payload.__errors__) {
+                user.loginErrors = action.payload.__errors__;
+            }
+            else {
+                user.name = action.payload.name;
+                user.user = action.payload.user;
+                //localStorage.setItem('token', action.payload.token);
+                user.token = action.payload.token
+                user.loginErrors = [];
+            }
             user.loading = false;
+            user.networkErrors = [];
             user.lastFetch = Date.now();
         },
     }

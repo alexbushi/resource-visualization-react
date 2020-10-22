@@ -1,11 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { loadResources } from "../store/resources";
-import { loginUser } from "../store/user";
 
 class ResourceList extends Component {
   componentDidMount() {
-    this.props.loginUser(userName, password);
     this.interval = setInterval(() => this.props.loadResources(), 5000);
   }
 
@@ -34,12 +32,10 @@ class ResourceList extends Component {
 const mapStateToProps = (state) => ({
   resources: state.entities.resources.list,
   loadingResources: state.entities.resources.loading,
-  users: state.entities.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadResources: () => dispatch(loadResources()),
-  loginUser: (user, password) => dispatch(loginUser(user, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResourceList);

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { rtoList } from "./constants";
+import { loginUser } from "../store/user";
+import { connect } from "react-redux";
 
 class LoginForm extends Form {
   state = {
@@ -20,12 +22,15 @@ class LoginForm extends Form {
     rtoName: Joi.string().required().label("RTO"),
   };
 
-  doSubmit = () => {
-    // TODO: dispatch loginUser(username, password);
-    console.log("submitted");
+  doSubmit = async () => {
+    await this.props.loginUser(
+      this.state.data.username,
+      this.state.data.password
+    );
   };
 
   render() {
+    const { loginErrors, networkErrors } = this.props;
     return (
       <div>
         <h1>Login</h1>
@@ -34,10 +39,26 @@ class LoginForm extends Form {
           {this.renderInput("password", "Password", "password")}
           {this.renderSelect("rtoName", "RTO", this.state.rtos)}
           {this.renderButton("Login")}
+          {loginErrors.length !== 0 && (
+            <div className='alert alert-danger'>{loginErrors}</div>
+          )}
+          {networkErrors.length !== 0 && (
+            <div className='alert alert-danger'>{networkErrors}</div>
+          )}
         </form>
       </div>
     );
   }
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => ({
+  loadingUser: state.entities.user.loading,
+  networkErrors: state.entities.user.networkErrors,
+  loginErrors: state.entities.user.loginErrors,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (user, password) => dispatch(loginUser(user, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
