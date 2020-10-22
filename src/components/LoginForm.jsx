@@ -14,6 +14,7 @@ class LoginForm extends Form {
     },
     rtos: rtoList,
     errors: {},
+    showErrorMessage: false,
   };
 
   schema = {
@@ -23,14 +24,19 @@ class LoginForm extends Form {
   };
 
   doSubmit = async () => {
+    this.setState({ showErrorMessage: false });
     await this.props.loginUser(
       this.state.data.username,
       this.state.data.password
     );
+    if (this.props.token) {
+      // window.location = '/';
+    } else {
+      this.setState({ showErrorMessage: true });
+    }
   };
 
   render() {
-    const { loginErrors, networkErrors } = this.props;
     return (
       <div>
         <h1>Login</h1>
@@ -38,13 +44,9 @@ class LoginForm extends Form {
           {this.renderInput("username", "Username")}
           {this.renderInput("password", "Password", "password")}
           {this.renderSelect("rtoName", "RTO", this.state.rtos)}
-          {this.renderButton("Login")}
-          {loginErrors.length !== 0 && (
-            <div className='alert alert-danger'>{loginErrors}</div>
-          )}
-          {networkErrors.length !== 0 && (
-            <div className='alert alert-danger'>{networkErrors}</div>
-          )}
+          {this.renderButton("Login", this.props.loading)}
+          {this.state.showErrorMessage &&
+            this.renderErrorMessage(this.props.apiErrors)}
         </form>
       </div>
     );
@@ -53,8 +55,9 @@ class LoginForm extends Form {
 
 const mapStateToProps = (state) => ({
   loadingUser: state.entities.user.loading,
-  networkErrors: state.entities.user.networkErrors,
-  loginErrors: state.entities.user.loginErrors,
+  apiErrors: state.entities.user.errors,
+  token: state.entities.user.token,
+  loading: state.entities.user.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

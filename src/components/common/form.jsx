@@ -52,10 +52,20 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label) {
+  renderErrorMessage = (apiErrors) => {
+    return <div className='alert alert-danger'>{apiErrors}</div>;
+  };
+
+  renderButton(label, loading) {
     return (
       <button disabled={this.validate()} className='btn btn-primary'>
-        {label}
+        {loading ? (
+          <div className='spinner-border' role='status'>
+            <span className='sr-only'>Loading...</span>
+          </div>
+        ) : (
+          <div>{label}</div>
+        )}
       </button>
     );
   }

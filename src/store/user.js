@@ -12,7 +12,6 @@ const slice = createSlice({
     initialState: {
         name: null,
         user: null,
-        // Need to securely store token
         token: null,
         // What happens when user logs out, need persistence
         timerIntervals: {
@@ -23,37 +22,39 @@ const slice = createSlice({
         },
         loading: false,
         lastFetch: null,
-        networkErrors: [],
-        loginErrors: []
+        errors: {}
     },
     reducers: {
         userRequestFailed: (user, action) => {
             user.loading = false;
-            user.networkErrors = action.payload;
+            user.errors = action.payload;
         },
         userRequested: (user, action) => {
             user.loading = true;
+            user.errors = {};
         },
         userLoggedOut: (user, action) => {
-            //user.name = null,
+            // user.name = null,
             // user.token = null,
             // user.user = null,
             // user.timerIntervals = null
         },
         userReceived: (user, action) => {
+            // bad login credentials
             if (action.payload.__errors__) {
-                user.loginErrors = action.payload.__errors__;
+                user.errors = action.payload.__errors__;
+                user.loading = false;
             }
+            // succeess logging in
             else {
                 user.name = action.payload.name;
                 user.user = action.payload.user;
-                //localStorage.setItem('token', action.payload.token);
+                // localStorage.setItem('token', action.payload.token);
                 user.token = action.payload.token
-                user.loginErrors = [];
+                user.lastFetch = Date.now();
+                user.loading = false;
+                user.errors = {};
             }
-            user.loading = false;
-            user.networkErrors = [];
-            user.lastFetch = Date.now();
         },
     }
 });
@@ -75,7 +76,6 @@ export const loginUser = (user, password) => (dispatch, getState) => {
 
     return dispatch(
         apiCallBegan({
-            // TODO: research how to pass password
             url: loginUrl + `?user=${user}&password=${password}`,
             onStart: userRequested.type,
             onSuccess: userReceived.type,
