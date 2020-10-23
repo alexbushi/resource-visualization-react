@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.navbar-custom {
+  background-color: lightgreen;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

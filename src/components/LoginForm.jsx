@@ -25,20 +25,25 @@ class LoginForm extends Form {
 
   doSubmit = async () => {
     this.setState({ showErrorMessage: false });
+
     await this.props.loginUser(
       this.state.data.username,
       this.state.data.password
     );
+
     if (this.props.token) {
-      // window.location = '/';
+      // token received so go to home screen
+      //window.location = "/resources";
+      this.props.history.push("/resources");
     } else {
+      // no token was received so there must be an error
       this.setState({ showErrorMessage: true });
     }
   };
 
   render() {
     return (
-      <div>
+      <div className='container mt-5'>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("username", "Username")}

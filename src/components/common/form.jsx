@@ -52,8 +52,8 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderErrorMessage = (apiErrors) => {
-    return <div className='alert alert-danger'>{apiErrors}</div>;
+  renderErrorMessage = (error) => {
+    return <div className='alert alert-danger'>{error}</div>;
   };
 
   renderButton(label, loading) {
