@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { loadResources } from "../store/resources";
+import ResourceSquare from "./ResourceSquare";
 
 class ResourceList extends Component {
   componentDidMount() {
@@ -14,14 +15,16 @@ class ResourceList extends Component {
   render() {
     return (
       <Fragment>
-        <ul>
-          {this.props.resources.map((resource) => (
-            <li
-              key={resource.evseId}
-            >{`${resource.resourceStatus} ${resource.realPower}`}</li>
+        <div className='d-flex flex-wrap p-2'>
+          {this.props.resources.map((resource, index) => (
+            <ResourceSquare key={index} resource={resource} index={index} />
           ))}
-        </ul>
-        <div>{this.props.loadingResources.toString()}</div>
+        </div>
+        {this.props.loadingResources && (
+          <div className='spinner-border text-success' role='status'>
+            <span className='sr-only'>Loading...</span>
+          </div>
+        )}
       </Fragment>
     );
   }

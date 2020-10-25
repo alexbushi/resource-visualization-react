@@ -3,7 +3,12 @@
 }
 
 .navbar-custom {
-  background-color: lightgreen;
+  background-color: #769154;
+  color: white;
+}
+
+.resource {
+  background-color: #769154;
 }
 
 .App-logo {
