@@ -1,7 +1,7 @@
 // Slice of our store
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from './middleware/networkCallActions';
-import { loginUrl, logoutUrl } from './constants';
+import { loginUrl, logoutUrl } from '../constants';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Reducer (creates an action also)

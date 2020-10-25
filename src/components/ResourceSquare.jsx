@@ -4,7 +4,12 @@ import ReactTooltip from "react-tooltip";
 const ResourceSquare = ({ resource, index }) => {
   return (
     <div>
-      <div className='p-2 resource m-1' data-tip data-for={index.toString()}>
+      <div
+        className='p-2 resource m-1'
+        style={{ backgroundColor: "rgb(255, 0, 0)" }}
+        data-tip
+        data-for={index.toString()}
+      >
         {}
       </div>
       <ReactTooltip id={index.toString()} place='bottom' effect='solid'>

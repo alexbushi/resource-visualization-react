@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actions from './networkCallActions';
-import { baseURL } from '../constants';
+import { baseURL } from '../../constants';
 
 const api = ({ dispatch }) => next => async action => {
     if (action.type !== actions.apiCallBegan.type) return next(action);

@@ -23,10 +23,9 @@ function App() {
       <NavBar />
         <Provider store={store}>
           <Switch>
-            <Route path="/test" component={Test} />
             <ProtectedRoute path="/resources" component={ResourceList} />
             <Route path="/not-found" component={NotFound}/>
-            <Route path="/" exact component={LoginForm}/>
+            <Route path="/" exact component={Test}/>
             <Redirect to="/not-found" />
           </Switch>
         </Provider>

@@ -5,6 +5,7 @@ import ResourceSquare from "./ResourceSquare";
 
 class ResourceList extends Component {
   componentDidMount() {
+    this.props.loadResources();
     this.interval = setInterval(() => this.props.loadResources(), 5000);
   }
 

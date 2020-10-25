@@ -1,7 +1,7 @@
 // Slice of our store
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from './middleware/networkCallActions';
-import { statusUrl } from './constants';
+import { statusUrl } from '../constants';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Reducer (creates an action also)
@@ -63,7 +63,6 @@ export default slice.reducer;
 ////////////////////////////////////////////////////////////////////////////////
 
 export const loadResources = () => (dispatch, getState) => {
-
     const {user, name, token} = getState().entities.user;
 
     return dispatch(
