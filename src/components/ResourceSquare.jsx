@@ -1,26 +1,36 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
+import calculateColor from "../utils/calculateColor";
+import * as viewTypes from "../viewTypes";
 
-const ResourceSquare = ({ resource, index }) => {
+const ResourceSquare = ({ resource, index, view }) => {
+  const { redValue: r, greenValue: g, blueValue: b } = calculateColor(
+    resource,
+    view
+  );
+
   return (
     <div>
       <div
-        className='p-2 resource m-1'
-        style={{ backgroundColor: "rgb(255, 0, 0)" }}
+        className='p-0 m-1 resource-square'
+        style={{ background: `rgb(${r},${g},${b})` }}
         data-tip
         data-for={index.toString()}
       >
-        {}
+        {resource.resourceStatus === "CH" &&
+        (view === viewTypes.powerFlowkW || view === viewTypes.powerFlowPercent)
+          ? "C"
+          : ""}
       </div>
       <ReactTooltip id={index.toString()} place='bottom' effect='solid'>
-        {`EVSE Name: ${resource.evseName}`}
-        <br /> {`EV Name: ${resource.evName}`}
+        <br /> {`EVSE Name: ${resource.evseName}`}
         <br /> {`EV Name: ${resource.evName}`}
         <br /> {`EVSE ID: ${resource.evseId}`}
         <br /> {`VIN: ${resource.vin}`}
-        <br /> {`Resource Status: ${resource.resourceStatus}`}
+        <br /> {`Status: ${resource.resourceStatus}`}
         <br /> {`Real Power: ${resource.realPower} kW`}
-        <br /> {`SOC: ${resource.soc} %`}
+        <br /> {`Power Flow (%): ${resource.powerFlowPercent}%`}
+        <br /> {`SOC: ${resource.soc}%`}
       </ReactTooltip>
     </div>
   );

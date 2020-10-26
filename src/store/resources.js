@@ -35,15 +35,26 @@ const constructResources = payload => {
 
     const resourceList = peerConnectedEvsesList.map(evse => {
         const ev = payload.cars_log.find(car => car.car_name === evse.car_name);
+        
+        let powerFlowPercent = 0;
+        if (evse.power_flow_real_kw === '' || ev.power_capacity_up === '' || ev.power_capacity_up === 0)
+        {
+            powerFlowPercent = 0;
+        } else {
+            powerFlowPercent = Math.round(Math.abs(evse.power_flow_real_kw / ev.power_capacity_up) * 100);
+            if(powerFlowPercent > 100) powerFlowPercent = 100;
+            if(powerFlowPercent < 0) powerFlowPercent = 0;
+        }
+
         return {
             evseId: evse.evse_id,
             vin: ev.vin,
             evseName: evse.name,
             evName: ev.car_name,
             resourceStatus: ev.primary_status,
-            soc: ev.soc,
+            soc: Math.round(ev.soc),
             realPower: evse.power_flow_real_kw,
-            powerCapacity: ev.power_capacity_up
+            powerFlowPercent
         }
     });
 

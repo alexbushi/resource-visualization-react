@@ -4,11 +4,11 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from './components/NotFound';
-import ResourceList from './components/ResourceList';
+import ResourceView from './components/ResourceView';
 import ProtectedRoute from './components/common/protectedRoute';
 import NavBar from './components/NavBar';
 import LoginForm from './components/LoginForm';
-import Test from './components/Test';
+//import Test from './components/Test';
 
 const store = configureStore();
 
@@ -19,13 +19,13 @@ function App() {
   });
 
   return (
-    <main>
-      <NavBar />
+    <main >
+        <NavBar />
         <Provider store={store}>
           <Switch>
-            <ProtectedRoute path="/resources" component={ResourceList} />
+            <ProtectedRoute path="/resources" component={ResourceView} />
             <Route path="/not-found" component={NotFound}/>
-            <Route path="/" exact component={Test}/>
+            <Route path="/" exact component={LoginForm}/>
             <Redirect to="/not-found" />
           </Switch>
         </Provider>

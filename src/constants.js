@@ -23,3 +23,15 @@ export const percentColorList = [
     { red: 1, green: 102, blue: 94},
     { red: 0, green: 60, blue: 48},
   ];
+
+  export const temperatureColorList = [
+    { red: 41, green: 98, blue: 255},
+    { red: 67, green: 147, blue: 195},
+    { red: 146, green: 197, blue: 222},
+    { red: 209, green: 229, blue: 240},
+    { red: 247, green: 247, blue: 247},
+    { red: 253, green: 219, blue: 199},
+    { red: 244, green: 165, blue: 130},
+    { red: 214, green: 96, blue: 77},
+    { red: 178, green: 24, blue: 43},
+  ];

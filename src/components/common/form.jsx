@@ -58,7 +58,7 @@ class Form extends Component {
 
   renderButton(label, loading) {
     return (
-      <button disabled={this.validate()} className='btn btn-primary'>
+      <button disabled={this.validate()} className='btn btn-success '>
         {loading ? (
           <div className='spinner-border' role='status'>
             <span className='sr-only'>Loading...</span>

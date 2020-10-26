@@ -1,4 +1,4 @@
-// Slice of our store
+// Slice of the store
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from './middleware/networkCallActions';
 import { loginUrl, logoutUrl } from '../constants';
@@ -10,16 +10,16 @@ import { loginUrl, logoutUrl } from '../constants';
 const slice = createSlice({
     name: "user",
     initialState: {
-        name: null,
-        user: null,
-        token: null,
+        name: "",
+        user: "",
+        token: "",
         // What happens when user logs out, need persistence
         timerIntervals: {
-            soc: 10,
-            powerkW: 10,
-            temperature: 10,
-            powerPercent: 10,
+            soc: 10000,
+            power: 2000,
+            temperature: 10000,
         },
+        views: [],
         loading: false,
         lastFetch: null,
         errors: {}
