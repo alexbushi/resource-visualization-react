@@ -35,7 +35,7 @@ const Legend = ({ view }) => {
         className='d-flex flex-row p-2 justify-content-center'
         style={{ background: "#5c5952" }}
       >
-        {view}
+        {view.units}
       </div>
       <div
         className='d-flex flex-row justify-content-center'
@@ -64,6 +64,13 @@ const Legend = ({ view }) => {
               </div>
             ))}
         </div>
+        {(view === viewTypes.powerFlowPercent ||
+          view === viewTypes.powerFlowkW) && (
+          <div className='d-flex flex-column justify-content-between mr-2 mb-2'>
+            <div className='rotated-text'>Discharge</div>
+            <div className='rotated-text'>Charge</div>
+          </div>
+        )}
       </div>
     </Fragment>
   );

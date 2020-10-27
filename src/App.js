@@ -22,13 +22,13 @@ function App() {
     <main >
         <Provider store={store}>
         <NavBar />
-          <Switch>
-            <ProtectedRoute path="/resources" component={ResourceView} />
-            <Route path="/test" component={Test}/>
-            <Route path="/not-found" component={NotFound}/>
-            <Route path="/" exact component={LoginForm}/>
-            <Redirect to="/not-found" />
-          </Switch>
+        <Switch>
+          <ProtectedRoute path="/resources" component={ResourceView} />
+          <Route path="/test" component={Test}/>
+          <Route path="/not-found" component={NotFound}/>
+          <Route path="/" exact component={LoginForm}/>
+          <Redirect to="/not-found" />
+        </Switch>
         </Provider>
      </main>
   );

@@ -33,7 +33,6 @@ class LoginForm extends Form {
 
     if (this.props.token) {
       // token received so go to home screen
-      //window.location = "/resources";
       this.props.history.push("/resources");
     } else {
       // no token was received so there must be an error
@@ -43,16 +42,28 @@ class LoginForm extends Form {
 
   render() {
     return (
-      <div className='container mt-5'>
-        <h1>Login</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderSelect("rtoName", "RTO", this.state.rtos)}
-          {this.renderButton("Login", this.props.loading)}
-          {this.state.showErrorMessage &&
-            this.renderErrorMessage(this.props.apiErrors)}
-        </form>
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-4'></div>
+          <div className='col-4'>
+            <h1 className='d-flex justify-content-center'>Login</h1>
+          </div>
+          <div className='col-4'></div>
+        </div>
+        <div className='row'>
+          <div className='col-4'></div>
+          <div className='col-4'>
+            <form onSubmit={this.handleSubmit}>
+              {this.renderInput("username", "Username")}
+              {this.renderInput("password", "Password", "password")}
+              {this.renderSelect("rtoName", "RTO", this.state.rtos)}
+              {this.renderButton("Login", this.props.loading)}
+              {this.state.showErrorMessage &&
+                this.renderErrorMessage(this.props.apiErrors)}
+            </form>
+          </div>
+          <div className='col-4'></div>
+        </div>
       </div>
     );
   }

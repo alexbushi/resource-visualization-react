@@ -1,27 +1,30 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ResourceSquare from "./ResourceSquare";
 import Legend from "./Legend";
 
 const ResourceList = ({ resources, view }) => {
   return (
-    <div className='row align-items-start mb-3'>
-      {/* to resizing based on device here */}
-      <div className='col-1'>
-        <Legend view={view} />
-      </div>
-      <div className='col'>
-        <div className='d-flex flex-wrap'>
-          {resources.map((resource, index) => (
-            <ResourceSquare
-              key={index}
-              resource={resource}
-              index={index}
-              view={view}
-            />
-          ))}
+    <Fragment>
+      <hr style={{ background: "white" }} />
+      <h4 className='row justify-content-start'>{view.name}</h4>
+      <div className='row align-items-start mb-3'>
+        <div className='col-1'>
+          <Legend view={view} />
+        </div>
+        <div className='col-11'>
+          <div className='d-flex flex-wrap'>
+            {resources.map((resource, index) => (
+              <ResourceSquare
+                key={index}
+                resource={resource}
+                index={index}
+                view={view}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
