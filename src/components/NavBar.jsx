@@ -25,7 +25,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light navbar-custom'>
+    <nav className='navbar navbar-expand-lg navbar-light navbar-custom mb-3'>
       {numOfRscs === 0 ? (
         <div className='navbar-custom'>Resource Visualization</div>
       ) : (

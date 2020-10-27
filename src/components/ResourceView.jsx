@@ -16,10 +16,23 @@ class ResourceView extends Component {
 
   render() {
     return (
-      <div className='container-fluid' style={{ background: " blue" }}>
+      <div className='container-fluid'>
         <ResourceList
           resources={this.props.resources}
           view={viewTypes.powerFlowkW}
+        />
+        <ResourceList
+          resources={this.props.resources}
+          view={viewTypes.powerFlowPercent}
+        />
+        <ResourceList
+          resources={this.props.resources}
+          view={viewTypes.status}
+        />
+        <ResourceList resources={this.props.resources} view={viewTypes.soc} />
+        <ResourceList
+          resources={this.props.resources}
+          view={viewTypes.temperature}
         />
       </div>
     );

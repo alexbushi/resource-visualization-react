@@ -1,5 +1,5 @@
-export const powerFlowkW = 'powerFlowkW';
-export const powerFlowPercent = 'powerFlowPercent';
-export const soc = 'soc';
-export const temperature = 'temperature';
-export const status = 'status';
+export const powerFlowkW = 'Power Flow (kW)';
+export const powerFlowPercent = 'Power Flow (%)';
+export const soc = 'SOC (%)';
+export const temperature = 'Temperature (°C)';
+export const status = 'Status';

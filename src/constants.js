@@ -36,3 +36,12 @@ export const percentColorList = [
     { red: 214, green: 96, blue: 77},
     { red: 178, green: 24, blue: 43},
   ];
+
+  export const statusColorList = [
+    { red: 0, green: 128, blue: 0},
+    { red: 153, green: 102, blue: 51},
+    { red: 128, green: 128, blue: 128},
+    { red: 128, green: 128, blue: 128},
+    { red: 179, green: 240, blue: 255},
+    { red: 230, green: 0, blue: 0},
+  ];

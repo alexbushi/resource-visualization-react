@@ -1,13 +1,16 @@
 import React from "react";
 import ResourceSquare from "./ResourceSquare";
+import Legend from "./Legend";
 
 const ResourceList = ({ resources, view }) => {
   return (
-    <div className='row test align-items-center'>
-      <div className='col-md-auto'>Legend</div>
-      <div className='col' style={{ background: "blue" }}>
-        <div className='d-flex flex-wrap p-2 align-items-center'>
-          {view}
+    <div className='row align-items-start mb-3'>
+      {/* to resizing based on device here */}
+      <div className='col-1'>
+        <Legend view={view} />
+      </div>
+      <div className='col'>
+        <div className='d-flex flex-wrap'>
           {resources.map((resource, index) => (
             <ResourceSquare
               key={index}

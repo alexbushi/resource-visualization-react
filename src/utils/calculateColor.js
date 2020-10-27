@@ -1,5 +1,5 @@
 import * as viewTypes from '../viewTypes';
-import {percentColorList, temperatureColorList} from '../constants';
+import {percentColorList, temperatureColorList, statusColorList} from '../constants';
 
 const calculateColor = (resource, view) => {
     let redValue = 0;
@@ -10,30 +10,30 @@ const calculateColor = (resource, view) => {
 
     if(view === viewTypes.status) {
         if (status === 'GI') {
-            redValue = 0
-            greenValue = 128
-            blueValue = 0
+            redValue = statusColorList[0].red;
+            greenValue = statusColorList[0].green;
+            blueValue = statusColorList[0].blue;
         }
         else if (status === 'CH') {
-            redValue = 153
-            greenValue = 102
-            blueValue = 51
+            redValue = statusColorList[1].red;
+            greenValue = statusColorList[1].green;
+            blueValue = statusColorList[1].blue;
         }
         else if (status === 'NK') {
-            redValue = greenValue = blueValue = 128;
+            redValue = greenValue = blueValue = statusColorList[2].red;
         }
         else if (status === 'NC') {
-            redValue = greenValue = blueValue = 128;
+            redValue = greenValue = blueValue = statusColorList[3].red;
         }
         else if (status === 'SLP') {
-            redValue = 179
-            greenValue = 240
-            blueValue = 255
+            redValue = statusColorList[4].red;
+            greenValue = statusColorList[4].green;
+            blueValue = statusColorList[4].blue;
         }
         else {
-            redValue = 230
-            greenValue = 0
-            blueValue = 0
+            redValue = statusColorList[5].red;
+            greenValue = statusColorList[5].green;
+            blueValue = statusColorList[5].blue;
         }
     }
     else if (view === viewTypes.temperature) {
