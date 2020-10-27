@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/user";
 import { loadResources } from "../store/resources";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChargingStation, faCar } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -25,11 +27,16 @@ const NavBar = () => {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light navbar-custom mb-3'>
+    <nav
+      className='navbar navbar-expand-lg navbar-light navbar-custom mb-3'
+      style={{ height: "50px" }}
+    >
+      <FontAwesomeIcon icon={faChargingStation} size='lg' />
+      <FontAwesomeIcon icon={faCar} size='lg' />
       {numOfRscs === 0 ? (
-        <div className='navbar-custom'>Resource Visualization</div>
+        <div className='navbar-custom ml-2'>Resource Visualization</div>
       ) : (
-        <div className='navbar-custom'>Resources: {numOfRscs}</div>
+        <div className='navbar-custom ml-2'>Resources: {numOfRscs}</div>
       )}
       {token && (
         <button className='btn btn-dark ml-2' onClick={() => update()}>
