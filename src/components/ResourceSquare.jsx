@@ -12,7 +12,7 @@ const ResourceSquare = ({ resource, index, view }) => {
   return (
     <div>
       <div
-        className='p-0 m-1 resource-square'
+        className='m-1 resource-square'
         style={{ background: `rgb(${r},${g},${b})` }}
         data-tip
         data-for={index.toString()}

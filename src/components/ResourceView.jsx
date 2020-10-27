@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadResources } from "../store/resources";
 import ResourceList from "./ResourceList";
@@ -16,30 +16,12 @@ class ResourceView extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div className='container-fluid' style={{ background: " blue" }}>
         <ResourceList
           resources={this.props.resources}
           view={viewTypes.powerFlowkW}
         />
-        <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.powerFlowPercent}
-        />
-        <ResourceList resources={this.props.resources} view={viewTypes.soc} />
-        <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.status}
-        />
-        <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.temperature}
-        />
-        {this.props.loadingResources && (
-          <div className='spinner-border text-success' role='status'>
-            <span className='sr-only'>Loading...</span>
-          </div>
-        )}
-      </Fragment>
+      </div>
     );
   }
 }
@@ -48,8 +30,6 @@ class ResourceView extends Component {
 // returning an object
 const mapStateToProps = (state) => ({
   resources: state.entities.resources.list,
-  loadingResources: state.entities.resources.loading,
-  views: state.entities.user.views,
 });
 
 const mapDispatchToProps = (dispatch) => ({

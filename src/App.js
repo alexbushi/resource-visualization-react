@@ -8,7 +8,7 @@ import ResourceView from './components/ResourceView';
 import ProtectedRoute from './components/common/protectedRoute';
 import NavBar from './components/NavBar';
 import LoginForm from './components/LoginForm';
-//import Test from './components/Test';
+import Test from './components/Test';
 
 const store = configureStore();
 
@@ -24,6 +24,7 @@ function App() {
         <NavBar />
           <Switch>
             <ProtectedRoute path="/resources" component={ResourceView} />
+            <Route path="/test" component={Test}/>
             <Route path="/not-found" component={NotFound}/>
             <Route path="/" exact component={LoginForm}/>
             <Redirect to="/not-found" />

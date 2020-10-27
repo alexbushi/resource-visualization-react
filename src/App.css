@@ -4,10 +4,15 @@
 }
 
 .resource-square {
-  height: 25px;
-  width: 25px;
+  height: 32px;
+  width: 32px;
 }
 
 .resource {
   background-color: #769154;
+}
+
+.test {
+  border: 5px solid rgba(128, 128, 128);
+  background-color: green;
 }
