@@ -6,7 +6,7 @@ const calculateColor = (resource, view) => {
     let greenValue = 0;
     let blueValue = 0;
 
-    let {resourceStatus: status, temperature: temp} = resource;
+    let {resourceStatus: status, tCellAvg: temp} = resource;
 
     if(view === viewTypes.status) {
         if (status === 'GI') {
@@ -37,7 +37,7 @@ const calculateColor = (resource, view) => {
         }
     }
     else if (view === viewTypes.temperature) {
-        if (temp <= 5) {
+        if (temp <= 5 && temp >=0) {
             redValue = temperatureColorList[0].red;
             greenValue = temperatureColorList[0].green;
             blueValue = temperatureColorList[0].blue;
@@ -77,10 +77,13 @@ const calculateColor = (resource, view) => {
             greenValue = temperatureColorList[7].green;
             blueValue = temperatureColorList[7].blue;
         }
-        else {
+        else if (temp >= 40) {
             redValue = temperatureColorList[8].red;
             greenValue = temperatureColorList[8].green;
             blueValue = temperatureColorList[8].blue;
+        }
+        else {
+            redValue = greenValue = blueValue = 128;
         }
     }
     else {

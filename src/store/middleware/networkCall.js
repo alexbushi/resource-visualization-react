@@ -5,12 +5,11 @@ import { baseURL } from '../../constants';
 const api = ({ dispatch }) => next => async action => {
     if (action.type !== actions.apiCallBegan.type) return next(action);
 
-    const { url, method, data, onStart, onSuccess, onError } = action.payload;
+    const { url, method, data, onStart, onSuccess, onError, stateData } = action.payload;
 
     if (onStart) dispatch({ type: onStart });
 
-    next(action);
-
+    next(action); 
     try {
         const response = await axios.request({
             baseURL,
@@ -21,7 +20,9 @@ const api = ({ dispatch }) => next => async action => {
         // General
         dispatch(actions.apiCallSuccess(response.data));
         // Specific
-        if (onSuccess) dispatch({type: onSuccess, payload: response.data});
+        if (onSuccess && stateData) dispatch({type: onSuccess, payload: {data: response.data, stateData}})
+        else if (onSuccess) dispatch({type: onSuccess, payload: response.data});
+        else {}
 
     } catch(error) {
         // General

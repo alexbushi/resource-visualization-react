@@ -1,4 +1,5 @@
 export const statusUrl = '/api/get_status';
+export const dataUrl = '/api/ev/data/get'
 export const loginUrl = '/api/auth'
 export const logoutUrl = '/api/logout'
 export const cacheValidTime = 10;

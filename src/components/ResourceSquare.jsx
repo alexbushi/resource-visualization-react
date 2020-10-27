@@ -28,9 +28,12 @@ const ResourceSquare = ({ resource, index, view }) => {
         <br /> {`EVSE ID: ${resource.evseId}`}
         <br /> {`VIN: ${resource.vin}`}
         <br /> {`Status: ${resource.resourceStatus}`}
-        <br /> {`Real Power: ${resource.realPower} kW`}
+        <br /> {`Power Flow (kW): ${resource.realPower} kW`}
         <br /> {`Power Flow (%): ${resource.powerFlowPercent}%`}
         <br /> {`SOC: ${resource.soc}%`}
+        <br /> {`Cell Avg Temp: ${resource.tCellAvg} °C`}
+        <br /> {`Cell Max Temp: ${resource.tCellMax} °C`}
+        <br /> {`Cell Min Temp: ${resource.tCellMin} °C`}
       </ReactTooltip>
     </div>
   );

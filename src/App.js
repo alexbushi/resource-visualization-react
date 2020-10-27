@@ -20,8 +20,8 @@ function App() {
 
   return (
     <main >
-        <NavBar />
         <Provider store={store}>
+        <NavBar />
           <Switch>
             <ProtectedRoute path="/resources" component={ResourceView} />
             <Route path="/not-found" component={NotFound}/>

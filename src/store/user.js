@@ -34,10 +34,10 @@ const slice = createSlice({
             user.errors = {};
         },
         userLoggedOut: (user, action) => {
-            // user.name = null,
-            // user.token = null,
-            // user.user = null,
-            // user.timerIntervals = null
+            user.name = "";
+            user.token = "";
+            user.user = "";
+            user.timerIntervals = {};
         },
         userReceived: (user, action) => {
             // bad login credentials
@@ -84,7 +84,9 @@ export const loginUser = (user, password) => (dispatch, getState) => {
     );
 };
 
-export const logoutUser = (user, name, token) => (dispatch, getState) => {
+export const logoutUser = () => (dispatch, getState) => {
+
+    const {user, name, token} = getState().entities.user;
 
     return dispatch(
         apiCallBegan({

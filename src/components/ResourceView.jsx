@@ -30,6 +30,10 @@ class ResourceView extends Component {
           resources={this.props.resources}
           view={viewTypes.status}
         />
+        <ResourceList
+          resources={this.props.resources}
+          view={viewTypes.temperature}
+        />
         {this.props.loadingResources && (
           <div className='spinner-border text-success' role='status'>
             <span className='sr-only'>Loading...</span>
