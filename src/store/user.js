@@ -11,9 +11,9 @@ import * as viewTypes from '../viewTypes';
 const slice = createSlice({
     name: "user",
     initialState: {
-        name: "Alex Bushinsky",
-        user: "alexdev",
-        token: "a4ad1218b438dd582fc832d3ebf7eeb27a33b423884c224848bcc9480e17791d",
+        name: "",
+        user: "",
+        token: "",
         // What happens when user logs out, need persistence
         views: [
             {

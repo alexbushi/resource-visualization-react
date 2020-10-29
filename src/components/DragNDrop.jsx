@@ -115,7 +115,7 @@ const DragNDrop = () => {
                     dispatch(toggleView(itemI));
                   }}
                 >
-                  {itemI + 1}) {item.name}
+                  {item.name}
                 </div>
               );
             })}

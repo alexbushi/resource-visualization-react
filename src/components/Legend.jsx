@@ -33,13 +33,21 @@ const Legend = ({ view }) => {
     <Fragment>
       <div
         className='d-flex flex-row p-2 justify-content-center'
-        style={{ background: "#5c5952" }}
+        style={{
+          background: "#5c5952",
+          borderTopLeftRadius: "10px",
+          borderTopRightRadius: "10px",
+        }}
       >
         {view.units}
       </div>
       <div
-        className='d-flex flex-row justify-content-center'
-        style={{ background: "#5c5952" }}
+        className='d-flex flex-row justify-content-center pb-2'
+        style={{
+          background: "#5c5952",
+          borderBottomLeftRadius: "10px",
+          borderBottomRightRadius: "10px",
+        }}
       >
         <div className='d-flex flex-column justify-content-between align-items-center my-2'>
           {determineLegendValues().map((value) => (
