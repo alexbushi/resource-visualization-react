@@ -57,12 +57,17 @@ const constructResources = (payload) => {
             }
         }
         
+        
         let powerFlowPercent = 0;
-        if (evse.power_flow_real_kw === '' || ev.power_capacity_up === '' || ev.power_capacity_up === 0)
+        if (evse.power_flow_real_kw === '' || ev.power_capacity_up === '')
         {
             powerFlowPercent = 0;
         } else {
             powerFlowPercent = Math.round(Math.abs(evse.power_flow_real_kw / ev.power_capacity_up) * 100);
+            if (isNaN(powerFlowPercent)) {
+                powerFlowPercent = 0;
+            }
+            
             if(powerFlowPercent > 100) powerFlowPercent = 100;
             if(powerFlowPercent < 0) powerFlowPercent = 0;
         }

@@ -6,7 +6,7 @@ import ResourceList from "./ResourceList";
 class ResourceView extends Component {
   componentDidMount() {
     this.props.loadResources();
-    //this.interval = setInterval(() => this.props.loadResources(), 10000);
+    this.interval = setInterval(() => this.props.loadResources(), 10000);
   }
 
   componentWillUnmount() {
