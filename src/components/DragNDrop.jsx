@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setViewList } from "../store/user";
+import { setViewList, toggleView } from "../store/user";
 
 const DragNDrop = () => {
   const dispatch = useDispatch();
@@ -67,6 +67,13 @@ const DragNDrop = () => {
     return "dnd-item";
   };
 
+  const getSelectedStyles = (itemI) => {
+    if (viewData[0].items[itemI].shouldShow === false) {
+      return "dnd-item unselected";
+    }
+    return "dnd-item";
+  };
+
   return (
     <div className='drag-n-drop'>
       {viewData.map((grp, grpI) => {
@@ -87,7 +94,11 @@ const DragNDrop = () => {
               //console.log("here are the second key(s): ", item);
               return (
                 <div
-                  className={dragging ? getStyles({ grpI, itemI }) : "dnd-item"}
+                  className={
+                    dragging
+                      ? getStyles({ grpI, itemI })
+                      : getSelectedStyles(itemI)
+                  }
                   draggable
                   key={item.name}
                   onDragStart={(e) => {
@@ -100,6 +111,9 @@ const DragNDrop = () => {
                         }
                       : null
                   }
+                  onClick={() => {
+                    dispatch(toggleView(itemI));
+                  }}
                 >
                   {itemI + 1}) {item.name}
                 </div>

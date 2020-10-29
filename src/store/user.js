@@ -32,8 +32,12 @@ const slice = createSlice({
         errors: {} 
     },
     reducers: {
-        userNewListReceived: (user, action) => {
+        userNewListReceived: (user, action) => { 
             user.views = action.payload;
+        },
+        userToggledView: (user, action) => {
+            const viewIndex = action.payload;
+            user.views[0].items[viewIndex].shouldShow = !user.views[0].items[viewIndex].shouldShow;
         },
         userRequestFailed: (user, action) => {
             user.loading = false;
@@ -75,6 +79,7 @@ const {
     userReceived,
     userLoggedOut,
     userNewListReceived,
+    userToggledView
 } = slice.actions;
 
 export default slice.reducer;
@@ -108,7 +113,12 @@ export const logoutUser = () => (dispatch, getState) => {
     );
 };
 
-export const setViewList = (newList) => (dispatch, getState) => {
+export const setViewList = (newList) => (dispatch) => {
 
     return dispatch(userNewListReceived(newList));
+};
+
+export const toggleView = (index) => (dispatch) => {
+
+    return dispatch(userToggledView(index));
 };

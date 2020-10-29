@@ -16,13 +16,15 @@ class ResourceView extends Component {
   render() {
     return (
       <div className='container-fluid'>
-        {this.props.viewList[0].items.map((view) => {
+        {this.props.viewList[0].items.map((view, index) => {
           return (
-            <ResourceList
-              key={view.name}
-              resources={this.props.resources}
-              view={view}
-            />
+            view.shouldShow && (
+              <ResourceList
+                key={index}
+                resources={this.props.resources}
+                view={view}
+              />
+            )
           );
         })}
       </div>
