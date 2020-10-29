@@ -1,8 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 function DragNDrop({ data }) {
   const [list, setList] = useState(data);
   const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    setList(data);
+  }, [setList, data]);
 
   const dragItem = useRef();
   const dragNode = useRef();
@@ -33,17 +37,23 @@ function DragNDrop({ data }) {
           newList[currentItem.grpI].items.splice(currentItem.itemI, 1)[0]
         );
         dragItem.current = params;
+        // get from store instead
+        localStorage.setItem("List", JSON.stringify(newList));
         return newList;
       });
     }
   };
 
-  const handleDragEnd = () => {
+  const handleDragEnd = (e) => {
     console.log("Ending drag...");
     setDragging(false);
     dragNode.current.removeEventListener("dragend", handleDragEnd);
     dragItem.current = null;
     dragNode.current = null;
+  };
+
+  const allowDrop = (e) => {
+    e.preventDefault();
   };
 
   const getStyles = (params) => {
@@ -52,7 +62,7 @@ function DragNDrop({ data }) {
       currentItem.grpI === params.grpI &&
       currentItem.itemI === params.itemI
     ) {
-      return "current dnd-item";
+      return "dnd-item current";
     }
     return "dnd-item";
   };
@@ -68,10 +78,12 @@ function DragNDrop({ data }) {
               ? (e) => handleDragEnter(e, { grpI, itemI: 0 })
               : null
           }
+          onDragOver={(e) => allowDrop(e)}
         >
           <div className='group-title'>{grp.title}</div>
           {grp.items.map((item, itemI) => (
             <div
+              className={dragging ? getStyles({ grpI, itemI }) : "dnd-item"}
               draggable
               onDragStart={(e) => {
                 handletDragStart(e, { grpI, itemI });
@@ -84,7 +96,6 @@ function DragNDrop({ data }) {
                   : null
               }
               key={item}
-              className={dragging ? getStyles({ grpI, itemI }) : "dnd-item"}
             >
               {item}
             </div>
