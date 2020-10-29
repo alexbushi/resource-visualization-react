@@ -1,18 +1,16 @@
-import React, { Fragment } from "react";
+import React from "react";
+import DragNDrop from "./DragNDrop";
 
-const Test = () => {
-  return (
-    <Fragment>
-      <div className='container-fluid'>
-        <div className='row test'>
-          <div className='col-md-auto'>Legend</div>
-          <div className='col' style={{ background: "blue" }}>
-            Resource Squares
-          </div>
-        </div>
-      </div>
-    </Fragment>
-  );
-};
+const defaultData = [
+  {
+    title: "group 1",
+    items: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+  },
+  { title: "group 2", items: [] },
+];
+
+function Test() {
+  return <DragNDrop data={defaultData} />;
+}
 
 export default Test;

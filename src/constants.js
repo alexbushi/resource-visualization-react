@@ -9,6 +9,9 @@ export const baseURL = 'http://localhost:8010/proxy';
 export const rtoList = [
     { _id: 0, name: "PJM" },
     { _id: 1, name: "CAISO" },
+    {_id: 2, name: "Denmark"},
+    {_id: 3, name: "France"},
+    {_id: 4, name: "United Kingdom"}
   ];
 
 export const percentColorList = [

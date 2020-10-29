@@ -5,6 +5,7 @@ import { logoutUser } from "../store/user";
 import { loadResources } from "../store/resources";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChargingStation, faCar } from "@fortawesome/free-solid-svg-icons";
+import SettingsModal from "./SettingsModal";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ const NavBar = () => {
 
   const logout = () => {
     dispatch(logoutUser());
-    console.log("here");
     window.location = "/";
   };
 
@@ -51,11 +51,14 @@ const NavBar = () => {
           )}
         </button>
       )}
-      {token && (
-        <button className='btn btn-secondary ml-auto' onClick={() => logout()}>
-          Logout
-        </button>
-      )}
+      <div className='ml-auto'>
+        {token && <SettingsModal />}
+        {token && (
+          <button className='btn btn-secondary ml-3' onClick={() => logout()}>
+            Logout
+          </button>
+        )}
+      </div>
 
       {/* <div className='navbar-nav'>
         <NavLink className='nav-item nav-link' to='/not-found'>
