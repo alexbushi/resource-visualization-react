@@ -22,7 +22,7 @@
   text-orientation: mixed;
 }
 
-.drag-n-drop {
+/* .drag-n-drop {
   padding: 0.5rem;
   display: grid;
   gap: 0.5rem;
@@ -30,34 +30,38 @@
   height: 100%;
   grid-template-columns: repeat(auto-fill, 300px);
   align-items: start;
-}
+} */
+
 .dnd-group {
   background-color: #49505e;
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 2.5rem;
 }
 .dnd-item {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 150px;
-  background-color: white;
-  border-radius: 5px;
-  color: #282c34;
-  font-weight: bold;
+  min-height: 50px; */
+  background-color: rgb(56, 49, 49);
+  border-radius: 55px;
+  padding: 2.5rem;
+  /* color: #282c34;
+  font-weight: bold; */
 }
+
 .dnd-item:not(:last-of-type) {
-  margin-bottom: 0.5rem;
+  margin-bottom: 2.5rem;
 }
-.dnd-item * {
+/*.dnd-item * {
   margin: 0;
   font-size: 1.2rem;
-}
+} */
+
 .group-title {
   text-align: left;
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
 }
 .current {
-  background-color: #282c34;
+  background-color: #687181;
 }

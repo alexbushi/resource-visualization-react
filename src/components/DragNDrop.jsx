@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import ResourceList from "./ResourceList";
 
 function DragNDrop({ data }) {
   const [list, setList] = useState(data);
@@ -69,39 +70,62 @@ function DragNDrop({ data }) {
 
   return (
     <div className='drag-n-drop'>
-      {list.map((grp, grpI) => (
-        <div
-          key={grp.title}
-          className='dnd-group'
-          onDragEnter={
-            dragging && !grp.items.length
-              ? (e) => handleDragEnter(e, { grpI, itemI: 0 })
-              : null
-          }
-          onDragOver={(e) => allowDrop(e)}
-        >
-          <div className='group-title'>{grp.title}</div>
-          {grp.items.map((item, itemI) => (
-            <div
-              className={dragging ? getStyles({ grpI, itemI }) : "dnd-item"}
-              draggable
-              onDragStart={(e) => {
-                handletDragStart(e, { grpI, itemI });
-              }}
-              onDragEnter={
-                dragging
-                  ? (e) => {
-                      handleDragEnter(e, { grpI, itemI });
-                    }
-                  : null
-              }
-              key={item}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      ))}
+      {list.map((grp, grpI) => {
+        console.log("here is the first key:", grp.title);
+        return (
+          <div
+            key={grp.title}
+            className='dnd-group'
+            onDragEnter={
+              dragging && !grp.items.length
+                ? (e) => handleDragEnter(e, { grpI, itemI: 0 })
+                : null
+            }
+            onDragOver={(e) => allowDrop(e)}
+          >
+            <div className='group-title'>{grp.title}</div>
+            {grp.items.map((item, itemI) => {
+              console.log("here are the second key(s): ", item.name);
+              return (
+                <div
+                  className={dragging ? getStyles({ grpI, itemI }) : "dnd-item"}
+                  draggable
+                  key={item.name}
+                  onDragStart={(e) => {
+                    handletDragStart(e, { grpI, itemI });
+                  }}
+                  onDragEnter={
+                    dragging
+                      ? (e) => {
+                          handleDragEnter(e, { grpI, itemI });
+                        }
+                      : null
+                  }
+                >
+                  <ResourceList
+                    resources={[
+                      {
+                        evName: "STAR-Storage-08",
+                        evseId: "udv00077",
+                        evseName: "STAR-Storage-08",
+                        powerFlowPercent: 18,
+                        realPower: "2.9",
+                        resourceStatus: "GI",
+                        soc: 43,
+                        tCellAvg: "17.70",
+                        tCellMax: "18.90",
+                        tCellMin: "16.10",
+                        vin: "UDV00077",
+                      },
+                    ]}
+                    view={item}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }

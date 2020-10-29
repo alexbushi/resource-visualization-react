@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DragNDrop from "./DragNDrop";
+import * as viewTypes from "../viewTypes";
 
 const defaultData = [
   {
-    title: "group 1",
-    items: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    title: "Variables",
+    items: [viewTypes.soc, viewTypes.temperature, viewTypes.powerFlowPercent],
   },
-  { title: "group 2", items: [] },
 ];
 
 function Test() {
@@ -22,7 +22,11 @@ function Test() {
     }
   }, [setData]);
 
-  return <DragNDrop data={data} />;
+  return (
+    <div className='container-fluid'>
+      <DragNDrop data={data} />
+    </div>
+  );
 }
 
 export default Test;

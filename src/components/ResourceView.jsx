@@ -1,8 +1,43 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadResources } from "../store/resources";
-import ResourceList from "./ResourceList";
 import * as viewTypes from "../viewTypes";
+import ResourceList from "./ResourceList";
+
+// const ResourceView = () => {
+//   const [data, setData] = useState([]);
+
+//   const dispatch = useDispatch();
+//   const resources = useSelector((state) => state.entities.resources.list);
+
+//   useEffect(() => {
+//     dispatch(loadResources());
+
+//     //get from store instead
+//     if (localStorage.getItem("List")) {
+//       console.log(localStorage.getItem("List"));
+//       setData(JSON.parse(localStorage.getItem("List")));
+//     } else {
+//       setData([
+//         {
+//           title: "Variables",
+//           items: [
+//             <ResourceList resources={resources} view={viewTypes.powerFlowkW} />,
+//             <ResourceList resources={resources} view={viewTypes.powerFlowkW} />,
+//           ],
+//         },
+//       ]);
+//     }
+//   }, [dispatch, resources]);
+
+//   return (
+//     <div className='container-fluid'>
+//       <DragNDrop data={data} />
+//     </div>
+//   );
+// };
+
+// export default ResourceView;
 
 class ResourceView extends Component {
   componentDidMount() {
@@ -15,6 +50,7 @@ class ResourceView extends Component {
   }
 
   render() {
+    console.log(this.props.resources);
     return (
       <div className='container-fluid'>
         <ResourceList
@@ -25,7 +61,7 @@ class ResourceView extends Component {
           resources={this.props.resources}
           view={viewTypes.powerFlowPercent}
         />
-        <ResourceList
+        {/* <ResourceList
           resources={this.props.resources}
           view={viewTypes.status}
         />
@@ -33,7 +69,7 @@ class ResourceView extends Component {
         <ResourceList
           resources={this.props.resources}
           view={viewTypes.temperature}
-        />
+        /> */}
       </div>
     );
   }
