@@ -8,11 +8,11 @@ import * as viewTypes from "../viewTypes";
 
 const Legend = ({ view }) => {
   const determineLegendValues = () => {
-    if (view === viewTypes.temperature) {
+    if (view.name === viewTypes.temperature.name) {
       return [45, 22.5, 0];
-    } else if (view === viewTypes.status) {
+    } else if (view.name === viewTypes.status.name) {
       return ["GI", "CH", "NK", "NC", "SLP", "Other"];
-    } else if (view === viewTypes.powerFlowkW) {
+    } else if (view.name === viewTypes.powerFlowkW.name) {
       return [25, 0, -25];
     } else {
       return [100, 50, 0];
@@ -20,9 +20,9 @@ const Legend = ({ view }) => {
   };
 
   const determineLegendColors = () => {
-    if (view === viewTypes.temperature) {
+    if (view.name === viewTypes.temperature.name) {
       return temperatureColorList;
-    } else if (view === viewTypes.status) {
+    } else if (view.name === viewTypes.status.name) {
       return statusColorList;
     } else {
       return percentColorList;
@@ -64,8 +64,8 @@ const Legend = ({ view }) => {
               </div>
             ))}
         </div>
-        {(view === viewTypes.powerFlowPercent ||
-          view === viewTypes.powerFlowkW) && (
+        {(view.name === viewTypes.powerFlowPercent.name ||
+          view.name === viewTypes.powerFlowkW.name) && (
           <div className='d-flex flex-column justify-content-between mr-2 mb-2'>
             <div className='rotated-text'>Discharge</div>
             <div className='rotated-text'>Charge</div>

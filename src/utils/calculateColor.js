@@ -8,7 +8,7 @@ const calculateColor = (resource, view) => {
 
     let {resourceStatus: status, tCellAvg: temp} = resource;
 
-    if(view === viewTypes.status) {
+    if(view.name === viewTypes.status.name) {
         if (status === 'GI') {
             redValue = statusColorList[0].red;
             greenValue = statusColorList[0].green;
@@ -36,7 +36,7 @@ const calculateColor = (resource, view) => {
             blueValue = statusColorList[5].blue;
         }
     }
-    else if (view === viewTypes.temperature) {
+    else if (view.name === viewTypes.temperature.name) {
         if (temp <= 5 && temp >=0) {
             redValue = temperatureColorList[0].red;
             greenValue = temperatureColorList[0].green;
@@ -89,7 +89,7 @@ const calculateColor = (resource, view) => {
     else {
         let {position, colorsList} = determineViewParameters(resource, view); 
 
-        if (resource.resourceStatus === 'GI') {
+        if (resource.resourceStatus === 'GI' || resource.resourceStatus === 'CH') {
             let positionInColorArray = (position / 100 * (colorsList.length - 1));
             let index = Math.trunc(positionInColorArray);
             let remainder = (positionInColorArray - index);
@@ -117,10 +117,10 @@ const determineViewParameters = (resource, view) => {
 
     const {realPower, powerFlowPercent, soc} = resource;
 
-    if(view === viewTypes.powerFlowPercent) {
+    if(view.name === viewTypes.powerFlowPercent.name) {
         position = powerFlowPercent;
         colorsList = percentColorList;
-    } else if (view === viewTypes.powerFlowkW) {
+    } else if (view.name === viewTypes.powerFlowkW.name) {
         // Need to scale dynamically (currently -25 to 25 kW)
         position = (2 * realPower) + 50;
         colorsList = percentColorList;

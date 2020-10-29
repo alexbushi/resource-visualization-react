@@ -1,48 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadResources } from "../store/resources";
-import * as viewTypes from "../viewTypes";
 import ResourceList from "./ResourceList";
-
-// const ResourceView = () => {
-//   const [data, setData] = useState([]);
-
-//   const dispatch = useDispatch();
-//   const resources = useSelector((state) => state.entities.resources.list);
-
-//   useEffect(() => {
-//     dispatch(loadResources());
-
-//     //get from store instead
-//     if (localStorage.getItem("List")) {
-//       console.log(localStorage.getItem("List"));
-//       setData(JSON.parse(localStorage.getItem("List")));
-//     } else {
-//       setData([
-//         {
-//           title: "Variables",
-//           items: [
-//             <ResourceList resources={resources} view={viewTypes.powerFlowkW} />,
-//             <ResourceList resources={resources} view={viewTypes.powerFlowkW} />,
-//           ],
-//         },
-//       ]);
-//     }
-//   }, [dispatch, resources]);
-
-//   return (
-//     <div className='container-fluid'>
-//       <DragNDrop data={data} />
-//     </div>
-//   );
-// };
-
-// export default ResourceView;
 
 class ResourceView extends Component {
   componentDidMount() {
     this.props.loadResources();
-    this.interval = setInterval(() => this.props.loadResources(), 10000);
+    //this.interval = setInterval(() => this.props.loadResources(), 10000);
   }
 
   componentWillUnmount() {
@@ -50,26 +14,17 @@ class ResourceView extends Component {
   }
 
   render() {
-    console.log(this.props.resources);
     return (
       <div className='container-fluid'>
-        <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.powerFlowkW}
-        />
-        <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.powerFlowPercent}
-        />
-        {/* <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.status}
-        />
-        <ResourceList resources={this.props.resources} view={viewTypes.soc} />
-        <ResourceList
-          resources={this.props.resources}
-          view={viewTypes.temperature}
-        /> */}
+        {this.props.viewList[0].items.map((view) => {
+          return (
+            <ResourceList
+              key={view.name}
+              resources={this.props.resources}
+              view={view}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -79,6 +34,7 @@ class ResourceView extends Component {
 // returning an object
 const mapStateToProps = (state) => ({
   resources: state.entities.resources.list,
+  viewList: state.entities.user.views,
 });
 
 const mapDispatchToProps = (dispatch) => ({

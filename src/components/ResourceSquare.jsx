@@ -13,12 +13,13 @@ const ResourceSquare = ({ resource, index, view }) => {
     <div>
       <div
         className='m-1 resource-square'
-        style={{ background: `rgb(${r},${g},${b})` }}
+        style={{ background: `rgb(${r},${g},${b})`, color: "yellow" }}
         data-tip
         data-for={index.toString()}
       >
         {resource.resourceStatus === "CH" &&
-        (view === viewTypes.powerFlowkW || view === viewTypes.powerFlowPercent)
+        (view.name === viewTypes.powerFlowkW.name ||
+          view.name === viewTypes.powerFlowPercent.name)
           ? "C"
           : ""}
       </div>

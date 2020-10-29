@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from './middleware/networkCallActions';
 import { loginUrl, logoutUrl } from '../constants';
+import * as viewTypes from '../viewTypes';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Reducer (creates an action also)
@@ -14,17 +15,26 @@ const slice = createSlice({
         user: "",
         token: "",
         // What happens when user logs out, need persistence
-        timerIntervals: {
-            soc: 10000,
-            power: 2000,
-            temperature: 10000,
-        },
-        views: [],
+        views: [
+            {
+              title: "Variables",
+              items: [
+                viewTypes.powerFlowkW,
+                viewTypes.powerFlowPercent,
+                viewTypes.status,
+                viewTypes.soc,
+                viewTypes.temperature,
+              ],
+            },
+          ],
         loading: false,
         lastFetch: null,
-        errors: {}
+        errors: {} 
     },
     reducers: {
+        userNewListReceived: (user, action) => {
+            user.views = action.payload;
+        },
         userRequestFailed: (user, action) => {
             user.loading = false;
             user.errors = action.payload;
@@ -63,7 +73,8 @@ const {
     userRequestFailed, 
     userRequested, 
     userReceived,
-    userLoggedOut
+    userLoggedOut,
+    userNewListReceived,
 } = slice.actions;
 
 export default slice.reducer;
@@ -95,4 +106,9 @@ export const logoutUser = () => (dispatch, getState) => {
             onError: userRequestFailed.type
         })
     );
+};
+
+export const setViewList = (newList) => (dispatch, getState) => {
+
+    return dispatch(userNewListReceived(newList));
 };

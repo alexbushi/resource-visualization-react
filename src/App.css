@@ -1,6 +1,9 @@
 .navbar-custom {
   background-color: #769154;
-  color: white;
+}
+
+.navbar-text {
+  font-size: 1.25rem;
 }
 
 .resource-square {
@@ -35,23 +38,24 @@
 .dnd-group {
   background-color: #49505e;
   border-radius: 5px;
-  padding: 2.5rem;
+  padding: 0.5rem;
 }
 .dnd-item {
   /* display: flex;
   justify-content: center;
   align-items: center;
   min-height: 50px; */
-  background-color: rgb(56, 49, 49);
-  border-radius: 55px;
-  padding: 2.5rem;
+  background-color: rgb(65, 54, 54);
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-left: 10px;
   /* color: #282c34;
   font-weight: bold; */
 }
 
-.dnd-item:not(:last-of-type) {
+/* .dnd-item:not(:last-of-type) {
   margin-bottom: 2.5rem;
-}
+} */
 /*.dnd-item * {
   margin: 0;
   font-size: 1.2rem;
@@ -59,8 +63,8 @@
 
 .group-title {
   text-align: left;
-  margin-bottom: 0.5rem;
   font-size: 1.5rem;
+  margin-right: 2px;
 }
 .current {
   background-color: #687181;
