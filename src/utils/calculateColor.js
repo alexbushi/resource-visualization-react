@@ -10,30 +10,30 @@ const calculateColor = (resource, view) => {
 
     if(view.name === viewTypes.status.name) {
         if (status === 'GI') {
-            redValue = statusColorList[0].red;
-            greenValue = statusColorList[0].green;
-            blueValue = statusColorList[0].blue;
+            redValue = statusColorList[5].red;
+            greenValue = statusColorList[5].green;
+            blueValue = statusColorList[5].blue;
         }
         else if (status === 'CH') {
-            redValue = statusColorList[1].red;
-            greenValue = statusColorList[1].green;
-            blueValue = statusColorList[1].blue;
-        }
-        else if (status === 'NK') {
-            redValue = greenValue = blueValue = statusColorList[2].red;
-        }
-        else if (status === 'NC') {
-            redValue = greenValue = blueValue = statusColorList[3].red;
-        }
-        else if (status === 'SLP') {
             redValue = statusColorList[4].red;
             greenValue = statusColorList[4].green;
             blueValue = statusColorList[4].blue;
         }
+        else if (status === 'NK') {
+            redValue = greenValue = blueValue = statusColorList[3].red;
+        }
+        else if (status === 'NC') {
+            redValue = greenValue = blueValue = statusColorList[2].red;
+        }
+        else if (status === 'SLP') {
+            redValue = statusColorList[1].red;
+            greenValue = statusColorList[1].green;
+            blueValue = statusColorList[1].blue;
+        }
         else {
-            redValue = statusColorList[5].red;
-            greenValue = statusColorList[5].green;
-            blueValue = statusColorList[5].blue;
+            redValue = statusColorList[0].red;
+            greenValue = statusColorList[0].green;
+            blueValue = statusColorList[0].blue;
         }
     }
     else if (view.name === viewTypes.temperature.name) {
@@ -123,7 +123,7 @@ const determineViewParameters = (resource, view) => {
     } else if (view.name === viewTypes.powerFlowkW.name) {
         // Need to scale dynamically (currently -25 to 25 kW)
         position = (2 * realPower) + 50;
-        colorsList = percentColorList;
+        colorsList = percentColorList; 
     } else {
         position = soc;
         colorsList = percentColorList;

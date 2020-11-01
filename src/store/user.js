@@ -129,6 +129,6 @@ export const toggleView = (index) => (dispatch) => {
 ////////////////////////////////////////////////////////////////////////////////
 
 export const selectSortedViews = createSelector(
-    state => state.entities.user.views.items,
-    list => list.filter(view => view.shouldShow === true)
+    state => state.entities.user.views[0].items,
+    list => list.filter((item) => item.shouldShow)
 );
