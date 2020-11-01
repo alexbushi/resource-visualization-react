@@ -1,5 +1,6 @@
 // Slice of the store
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from 'reselect';
 import { apiCallBegan } from './middleware/networkCallActions';
 import { loginUrl, logoutUrl } from '../constants';
 import * as viewTypes from '../viewTypes';
@@ -122,3 +123,12 @@ export const toggleView = (index) => (dispatch) => {
 
     return dispatch(userToggledView(index));
 };
+
+////////////////////////////////////////////////////////////////////////////////
+// Selectors
+////////////////////////////////////////////////////////////////////////////////
+
+export const selectSortedViews = createSelector(
+    state => state.entities.user.views.items,
+    list => list.filter(view => view.shouldShow === true)
+);

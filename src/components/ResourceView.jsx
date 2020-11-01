@@ -1,46 +1,38 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { loadResources } from "../store/resources";
+//import { selectSortedViews } from "../store/user";
 import ResourceList from "./ResourceList";
 
-class ResourceView extends Component {
-  componentDidMount() {
-    this.props.loadResources();
-    this.interval = setInterval(() => this.props.loadResources(), 10000);
-  }
+const ResourceView = () => {
+  const dispatch = useDispatch();
+  //const views = useSelector(selectSortedViews);
+  const resources = useSelector((state) => state.entities.resources.list);
+  const viewList = useSelector((state) => state.entities.user.views);
+  //let interval = 0;
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  useEffect(() => {
+    dispatch(loadResources());
+    let interval = setInterval(() => dispatch(loadResources()), 10000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dispatch]);
 
-  render() {
-    return (
+  return (
+    <Fragment>
       <div className='container-fluid'>
-        {this.props.viewList[0].items.map((view, index) => {
+        {viewList[0].items.map((view, index) => {
           return (
             view.shouldShow && (
-              <ResourceList
-                key={index}
-                resources={this.props.resources}
-                view={view}
-              />
+              <ResourceList key={index} resources={resources} view={view} />
             )
           );
         })}
       </div>
-    );
-  }
-}
+      {/* <button onClick={() => console.log(views)}>hi</button> */}
+    </Fragment>
+  );
+};
 
-// state is state of the store
-// returning an object
-const mapStateToProps = (state) => ({
-  resources: state.entities.resources.list,
-  viewList: state.entities.user.views,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadResources: () => dispatch(loadResources()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResourceView);
+export default ResourceView;
