@@ -11,20 +11,12 @@
   width: 32px;
 }
 
-.resource {
-  background-color: #769154;
-}
-
-.test {
-  border: 5px solid rgba(128, 128, 128);
-  background-color: green;
-}
-
 .rotated-text {
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }
 
+/* Drag and Drop Component Styling */
 .dnd-group {
   background-color: #49505e;
   border-radius: 5px;

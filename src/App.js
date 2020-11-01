@@ -13,7 +13,7 @@ import Test from './components/Test';
 const store = configureStore();
 
 // with Switch order from most specific to most generic
-function App() {
+const App = () => {
   useEffect(() => {
     document.title = 'Resource Visualization';
   });

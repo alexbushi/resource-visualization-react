@@ -60,7 +60,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className='d-flex p-2 navbar navbar-expand-lg navbar-custom mb-3'>
+    <div className='d-flex p-2 mb-3 navbar navbar-expand-lg navbar-custom'>
       <FontAwesomeIcon
         className='align-self-center'
         icon={faChargingStation}

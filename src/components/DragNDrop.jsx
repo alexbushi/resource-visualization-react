@@ -40,7 +40,6 @@ const DragNDrop = () => {
       dragItem.current = params;
 
       dispatch(setViewList(newList));
-      // localStorage.setItem("List", JSON.stringify(newList));
     }
   };
 

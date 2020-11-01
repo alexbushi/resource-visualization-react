@@ -1,12 +1,15 @@
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 import ResourceSquare from "./ResourceSquare";
 import Legend from "./Legend";
 
-const ResourceList = ({ resources, view }) => {
+const ResourceList = ({ view }) => {
+  const resources = useSelector((state) => state.entities.resources.list);
+
   return (
     <Fragment>
       <hr style={{ background: "white" }} />
-      <h4 className='row justify-content-start'>{view.name}</h4>
+      <h4 className='row justify-content-start ml-2'>{view.name}</h4>
       <div className='row align-items-start mb-3'>
         <div className='col-1'>
           <Legend view={view} />
