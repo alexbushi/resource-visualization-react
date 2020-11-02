@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setViewList, toggleView } from "../store/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const DragNDrop = () => {
   const dispatch = useDispatch();
@@ -114,6 +116,13 @@ const DragNDrop = () => {
                     dispatch(toggleView(itemI));
                   }}
                 >
+                  {viewData[0].items[itemI].shouldShow && (
+                    <FontAwesomeIcon
+                      className='align-self-center mr-1'
+                      icon={faCheckCircle}
+                      size='1x'
+                    />
+                  )}
                   {item.name}
                 </div>
               );

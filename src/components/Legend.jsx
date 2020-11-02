@@ -5,15 +5,18 @@ import {
   statusColorList,
 } from "../constants";
 import * as viewTypes from "../viewTypes";
+import { useSelector } from "react-redux";
 
 const Legend = ({ view }) => {
+  const maxPower = useSelector((state) => state.entities.resources.maxPower);
+
   const determineLegendValues = () => {
     if (view.name === viewTypes.temperature.name) {
       return [45, 22.5, 0];
     } else if (view.name === viewTypes.status.name) {
       return ["GI", "CH", "NK", "NC", "SLP", "Other"];
     } else if (view.name === viewTypes.powerFlowkW.name) {
-      return [25, 0, -25];
+      return [maxPower, 0, maxPower * -1];
     } else {
       return [100, 50, 0];
     }
@@ -72,8 +75,7 @@ const Legend = ({ view }) => {
               </div>
             ))}
         </div>
-        {(view.name === viewTypes.powerFlowPercent.name ||
-          view.name === viewTypes.powerFlowkW.name) && (
+        {view.name === viewTypes.powerFlowkW.name && (
           <div className='d-flex flex-column justify-content-between mr-2 mb-2'>
             <div className='rotated-text'>Discharge</div>
             <div className='rotated-text'>Charge</div>

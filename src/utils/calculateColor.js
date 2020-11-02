@@ -1,7 +1,7 @@
 import * as viewTypes from '../viewTypes';
 import {percentColorList, temperatureColorList, statusColorList} from '../constants';
 
-const calculateColor = (resource, view) => {
+const calculateColor = (resource, view, maxPower) => {
     let redValue = 0;
     let greenValue = 0;
     let blueValue = 0;
@@ -87,7 +87,7 @@ const calculateColor = (resource, view) => {
         }
     }
     else {
-        let {position, colorsList} = determineViewParameters(resource, view); 
+        let {position, colorsList} = determineViewParameters(resource, view, maxPower); 
 
         if (resource.resourceStatus === 'GI' || resource.resourceStatus === 'CH') {
             let positionInColorArray = (position / 100 * (colorsList.length - 1));
@@ -111,7 +111,7 @@ const calculateColor = (resource, view) => {
     return ({redValue, greenValue, blueValue});
 }
 
-const determineViewParameters = (resource, view) => {
+const determineViewParameters = (resource, view, maxPower) => {
     let position = 0;
     let colorsList = [];
 
@@ -121,8 +121,9 @@ const determineViewParameters = (resource, view) => {
         position = powerFlowPercent;
         colorsList = percentColorList;
     } else if (view.name === viewTypes.powerFlowkW.name) {
-        // Need to scale dynamically (currently -25 to 25 kW)
-        position = (2 * realPower) + 50;
+        // Scale to 0 to 100
+        let minPower = maxPower * -1;
+        position = (100 * (realPower - minPower)) / (maxPower - minPower);
         colorsList = percentColorList; 
     } else {
         position = soc;

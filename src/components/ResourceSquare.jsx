@@ -2,11 +2,15 @@ import React from "react";
 import ReactTooltip from "react-tooltip";
 import calculateColor from "../utils/calculateColor";
 import * as viewTypes from "../viewTypes";
+import { useSelector } from "react-redux";
 
 const ResourceSquare = ({ resource, index, view }) => {
+  const maxPower = useSelector((state) => state.entities.resources.maxPower);
+
   const { redValue: r, greenValue: g, blueValue: b } = calculateColor(
     resource,
-    view
+    view,
+    maxPower
   );
 
   return (
@@ -31,6 +35,7 @@ const ResourceSquare = ({ resource, index, view }) => {
         <br /> {`Status: ${resource.resourceStatus}`}
         <br /> {`Power Flow (kW): ${resource.realPower} kW`}
         <br /> {`Power Flow (%): ${resource.powerFlowPercent}%`}
+        <br /> {`Max Power Capacity: ${resource.maxPowerCapacity} kW`}
         <br /> {`SOC: ${resource.soc}%`}
         <br /> {`Cell Avg Temp: ${resource.tCellAvg} °C`}
         <br /> {`Cell Max Temp: ${resource.tCellMax} °C`}
