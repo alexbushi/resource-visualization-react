@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actions from './networkCallActions';
-import { baseURL } from '../../constants';
+//import { baseURL } from '../../constants';
 import { determineBaseURL } from '../../constants';
 
 const api = ({ dispatch }) => next => async action => {
@@ -14,11 +14,12 @@ const api = ({ dispatch }) => next => async action => {
     
     try {
         const baseUrl = determineBaseURL(rto);
-        console.log('here in api handler:', baseUrl); 
-        console.log(baseURL); 
+        // console.log('here in api handler:', baseUrl); 
+        // console.log(baseURL); 
 
         const response = await axios.request({ 
-            baseURL,
+            //baseURL,
+            baseURL: baseUrl,
             url,
             method,
             data
