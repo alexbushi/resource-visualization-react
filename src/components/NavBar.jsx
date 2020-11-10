@@ -33,7 +33,7 @@ const NavBar = () => {
     if (token) {
       return (
         <Fragment>
-          <button className='btn btn-dark ml-2' onClick={() => update()}>
+          <button className='btn btn-light ml-2' onClick={() => update()}>
             {loadingResources ? "Updating" : "Update"}
             {loadingResources && (
               <div
@@ -49,7 +49,7 @@ const NavBar = () => {
           </div>
           <div className='ml-4'>
             <SettingsModal />
-            <button className='btn btn-secondary ml-3' onClick={() => logout()}>
+            <button className='btn btn-light ml-3' onClick={() => logout()}>
               Logout
             </button>
           </div>

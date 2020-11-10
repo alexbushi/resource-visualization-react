@@ -32,6 +32,12 @@ const Legend = ({ view }) => {
     }
   };
 
+  const getStyle = () => {
+    if (navigator.userAgent.indexOf("Chrome") > -1)
+      return "d-flex flex-column justify-content-between mb-2 mr-3";
+    return "d-flex flex-column justify-content-between ml-3 mb-2";
+  };
+
   return (
     <Fragment>
       <div
@@ -59,7 +65,7 @@ const Legend = ({ view }) => {
             </div>
           ))}
         </div>
-        <div className='d-flex flex-column  justify-content-between my-2'>
+        <div className='d-flex flex-column justify-content-between my-2'>
           {determineLegendColors()
             .slice(0)
             .reverse()
@@ -76,7 +82,7 @@ const Legend = ({ view }) => {
             ))}
         </div>
         {view.name === viewTypes.powerFlowkW.name && (
-          <div className='d-flex flex-column justify-content-between mr-2 mb-2'>
+          <div className={getStyle()}>
             <div className='rotated-text'>Discharge</div>
             <div className='rotated-text'>Charge</div>
           </div>

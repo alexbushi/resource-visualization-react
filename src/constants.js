@@ -2,9 +2,7 @@ export const statusUrl = '/api/get_status';
 export const dataUrl = '/api/ev/data/get'
 export const loginUrl = '/api/auth'
 export const logoutUrl = '/api/logout'
-export const cacheValidTime = 10;
 export const baseURL = 'http://localhost:8010/proxy';
-//export const baseURL = 'https://pjm.nuvve.com';
 
 export const rtoList = [
     { _id: 0, name: "PJM" },
@@ -13,6 +11,24 @@ export const rtoList = [
     {_id: 3, name: "France"},
     {_id: 4, name: "United Kingdom"}
   ];
+
+  export const determineBaseURL = (rto) => {
+    let url = '';
+    if (rto === rtoList[0].name) {
+      url = 'pjm.nuvve.com';
+    } else if (rto === rtoList[1].name) {
+      url = 'caiso.nuvve.com';
+    } else if (rto === rtoList[2].name) {
+      url = 'aggregator.nuvve.dk';
+    } else if (rto === rtoList[3].name) {
+      url = 'aggregator.nuvve.fr';
+    } else if (rto === rtoList[4].name) {
+      url = 'aggregator.nuvve.co.uk';
+    } else {
+      url = 'pjm.nuvve.com';
+    }
+  return 'https://' + url;
+  };
 
 export const percentColorList = [
     { red: 84, green: 48, blue: 5},

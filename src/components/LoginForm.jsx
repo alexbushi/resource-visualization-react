@@ -28,7 +28,8 @@ class LoginForm extends Form {
 
     await this.props.loginUser(
       this.state.data.username,
-      this.state.data.password
+      this.state.data.password,
+      this.state.rtos[this.state.data.rtoName].name
     );
 
     if (this.props.token) {
@@ -77,7 +78,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (user, password) => dispatch(loginUser(user, password)),
+  loginUser: (user, password, rto) => dispatch(loginUser(user, password, rto)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

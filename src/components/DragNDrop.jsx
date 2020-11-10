@@ -70,9 +70,9 @@ const DragNDrop = () => {
 
   const getSelectedStyles = (itemI) => {
     if (viewData[0].items[itemI].shouldShow === false) {
-      return "dnd-item unselected";
+      return "dnd-item";
     }
-    return "dnd-item";
+    return "dnd-item unselected";
   };
 
   return (
@@ -120,6 +120,15 @@ const DragNDrop = () => {
                     <FontAwesomeIcon
                       className='align-self-center mr-1'
                       icon={faCheckCircle}
+                      color='#84a55c'
+                      size='1x'
+                    />
+                  )}
+                  {viewData[0].items[itemI].shouldShow === false && (
+                    <FontAwesomeIcon
+                      className='align-self-center mr-1'
+                      icon={faCheckCircle}
+                      color='#84a55c'
                       size='1x'
                     />
                   )}

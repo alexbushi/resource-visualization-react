@@ -116,9 +116,10 @@ export default slice.reducer;
 ////////////////////////////////////////////////////////////////////////////////
 
 export const loadResources = () => async (dispatch, getState) => {
-    const {user, name, token} = getState().entities.user;
+    const {user, name, token, rto} = getState().entities.user;
 
     await dispatch(apiCallBegan({
+        rto,
         url: dataUrl + `?user=${user}&name=${name}&token=${token}`,
         onStart: resourcesRequested.type,
         onSuccess: evDataReceived.type,
@@ -127,6 +128,7 @@ export const loadResources = () => async (dispatch, getState) => {
 
     return dispatch(
         apiCallBegan({
+            rto,
             url: statusUrl + `?user=${user}&name=${name}&token=${token}`,
             onStart: resourcesRequested.type,
             onSuccess: resourcesReceived.type,

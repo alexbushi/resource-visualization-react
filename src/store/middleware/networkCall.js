@@ -1,17 +1,23 @@
 import axios from 'axios';
 import * as actions from './networkCallActions';
 import { baseURL } from '../../constants';
+import { determineBaseURL } from '../../constants';
 
 const api = ({ dispatch }) => next => async action => {
     if (action.type !== actions.apiCallBegan.type) return next(action);
 
-    const { url, method, data, onStart, onSuccess, onError, stateData } = action.payload;
+    const { rto, url, method, data, onStart, onSuccess, onError, stateData } = action.payload;
 
     if (onStart) dispatch({ type: onStart });
 
     next(action); 
+    
     try {
-        const response = await axios.request({
+        const baseUrl = determineBaseURL(rto);
+        console.log('here in api handler:', baseUrl); 
+        console.log(baseURL); 
+
+        const response = await axios.request({ 
             baseURL,
             url,
             method,
@@ -21,7 +27,7 @@ const api = ({ dispatch }) => next => async action => {
         dispatch(actions.apiCallSuccess(response.data));
         // Specific
         if (onSuccess && stateData) dispatch({type: onSuccess, payload: {data: response.data, stateData}})
-        else if (onSuccess) dispatch({type: onSuccess, payload: response.data});
+        else if (onSuccess) dispatch({type: onSuccess, payload: response.data, rto});
         else {}
 
     } catch(error) {

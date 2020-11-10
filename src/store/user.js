@@ -14,6 +14,7 @@ const slice = createSlice({
         name: "",
         user: "",
         token: "",
+        rto: "",
         // What happens when user logs out, need persistence
         views: [
             {
@@ -51,6 +52,7 @@ const slice = createSlice({
             user.name = "";
             user.token = "";
             user.user = "";
+            user.rto = "";
             user.timerIntervals = {};
         },
         userReceived: (user, action) => {
@@ -64,7 +66,8 @@ const slice = createSlice({
                 user.name = action.payload.name;
                 user.user = action.payload.user;
                 // localStorage.setItem('token', action.payload.token);
-                user.token = action.payload.token
+                user.token = action.payload.token;
+                user.rto = action.rto;
                 user.lastFetch = Date.now();
                 user.loading = false;
                 user.errors = {};
@@ -88,10 +91,11 @@ export default slice.reducer;
 // Action Creators
 ////////////////////////////////////////////////////////////////////////////////
 
-export const loginUser = (user, password) => (dispatch, getState) => {
-
+export const loginUser = (user, password, rto) => (dispatch, getState) => {
+    
     return dispatch(
-        apiCallBegan({
+        apiCallBegan({ 
+            rto,
             url: loginUrl + `?user=${user}&password=${password}`,
             onStart: userRequested.type,
             onSuccess: userReceived.type,
