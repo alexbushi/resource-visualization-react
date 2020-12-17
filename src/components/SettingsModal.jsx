@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+//import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
@@ -10,6 +11,8 @@ const SettingsModal = () => {
     else return "white";
   };
 
+  //const history = useHistory();
+
   return (
     <FontAwesomeIcon
       icon={faCog}
@@ -17,8 +20,7 @@ const SettingsModal = () => {
       size='lg'
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
-      data-toggle='modal'
-      data-target='exampleModal'
+      //onClick={() => history.push("/settings")}
     />
   );
 };

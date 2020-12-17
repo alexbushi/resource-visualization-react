@@ -14,8 +14,6 @@ const api = ({ dispatch }) => next => async action => {
     
     try {
         const baseUrl = determineBaseURL(rto);
-        // console.log('here in api handler:', baseUrl); 
-        // console.log(baseURL); 
 
         const response = await axios.request({ 
             //baseURL,

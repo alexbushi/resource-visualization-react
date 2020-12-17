@@ -2,6 +2,8 @@ export const statusUrl = '/api/get_status';
 export const dataUrl = '/api/ev/data/get'
 export const loginUrl = '/api/auth'
 export const logoutUrl = '/api/logout'
+export const savedSettingsUrl = '/api/settings/get'
+export const setSavedSettingsUrl = '/api/settings/set'
 export const baseURL = 'http://localhost:8010/proxy';
 
 export const rtoList = [

@@ -1,7 +1,7 @@
 // Slice of the store
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from './middleware/networkCallActions';
-import { loginUrl, logoutUrl } from '../constants';
+import { loginUrl, logoutUrl, savedSettingsUrl, setSavedSettingsUrl } from '../constants';
 import * as viewTypes from '../viewTypes';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,6 @@ const slice = createSlice({
         user: "",
         token: "",
         rto: "",
-        // What happens when user logs out, need persistence
         views: [
             {
               title: "Variables",
@@ -28,6 +27,10 @@ const slice = createSlice({
               ],
             },
           ],
+        settings: {
+            updateInterval: 10000, 
+            squareSize: 10
+        },
         loading: false,
         lastFetch: null,
         errors: {} 
@@ -47,6 +50,14 @@ const slice = createSlice({
         userRequested: (user, action) => {
             user.loading = true;
             user.errors = {};
+        },
+        userSavedSettingsRetreived: (user, action) => {
+            console.log(action.payload.settings);
+            user.settings = action.payload.settings;
+        },
+        userSavedSettingsSet: (user, action) => {
+            console.log(action.payload);
+            //user.settings = action.payload.settings;
         },
         userLoggedOut: (user, action) => {
             user.name = "";
@@ -82,8 +93,10 @@ const {
     userReceived,
     userLoggedOut,
     userNewListReceived,
-    userToggledView
-} = slice.actions;
+    userToggledView,
+    userSavedSettingsRetreived,
+    userSavedSettingsSet
+} = slice.actions; 
 
 export default slice.reducer;
 
@@ -91,7 +104,7 @@ export default slice.reducer;
 // Action Creators
 ////////////////////////////////////////////////////////////////////////////////
 
-export const loginUser = (user, password, rto) => (dispatch, getState) => {
+export const loginUser = (user, password, rto) => async (dispatch, getState) => {
     
     return dispatch(
         apiCallBegan({ 
@@ -102,6 +115,7 @@ export const loginUser = (user, password, rto) => (dispatch, getState) => {
             onError: userRequestFailed.type
         })
     );
+
 };
 
 export const logoutUser = () => (dispatch, getState) => {
@@ -112,6 +126,37 @@ export const logoutUser = () => (dispatch, getState) => {
         apiCallBegan({
             url: logoutUrl + `?user=${user}&name=${name}&token=${token}`,
             onSuccess: userLoggedOut.type,
+            onError: userRequestFailed.type
+        }) 
+    );
+};
+
+export const getSavedUserSettings = () => (dispatch, getState) => {
+
+    const {user, name, token} = getState().entities.user;
+
+    return dispatch(
+        apiCallBegan({
+            url: savedSettingsUrl + `?user=${user}&name=${name}&token=${token}`,
+            onStart: userRequested.type,
+            onSuccess: userSavedSettingsRetreived.type,
+            onError: userRequestFailed.type
+        })
+    );
+};
+
+export const setSavedUserSettings = (updateInterval, squareSize) => (dispatch, getState) => {
+
+    const {user, name, token} = getState().entities.user;
+
+    // saves as "a","","c" with a as the name
+    //const settings = [{"a": "", "": "", "c": ""}];   
+     
+    return dispatch( 
+        apiCallBegan({
+            url: setSavedSettingsUrl + `?user=${user}&name=${name}&token=${token}&settings=[{"updateInterval": "", "": "", "${updateInterval}": ""}, {"squareSize": "", "": "", "${squareSize}": ""}]`,
+            onStart: userRequested.type,
+            onSuccess: userSavedSettingsSet.type,
             onError: userRequestFailed.type
         })
     );

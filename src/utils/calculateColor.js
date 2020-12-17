@@ -87,7 +87,7 @@ const calculateColor = (resource, view, maxPower) => {
         }
     }
     else {
-        let {position, colorsList} = determineViewParameters(resource, view, maxPower); 
+        let {position, colorsList} = determineViewParameters(resource, view, maxPower);         
 
         if (resource.resourceStatus === 'GI' || resource.resourceStatus === 'CH') {
             let positionInColorArray = (position / 100 * (colorsList.length - 1));
@@ -129,7 +129,6 @@ const determineViewParameters = (resource, view, maxPower) => {
         position = soc;
         colorsList = percentColorList;
     }
-    
     return ({position, colorsList});
 };
 

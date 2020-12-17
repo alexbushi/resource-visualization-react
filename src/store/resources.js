@@ -81,8 +81,10 @@ const constructResources = (payload) => {
         }
 
         // Calculate new maxPowerCap
-        if (ev.power_capacity_up > maxPowerCap) maxPowerCap = ev.power_capacity_up;
-
+        if (parseFloat(maxPowerCap) < parseFloat(ev.power_capacity_up)) {   
+            maxPowerCap = ev.power_capacity_up;
+        }
+        
         return {
             evseId: evse.evse_id,
             vin: ev.vin,
