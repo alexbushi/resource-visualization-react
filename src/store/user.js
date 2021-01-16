@@ -76,7 +76,6 @@ const slice = createSlice({
             else {
                 user.name = action.payload.name;
                 user.user = action.payload.user;
-                // localStorage.setItem('token', action.payload.token);
                 user.token = action.payload.token;
                 user.rto = action.rto;
                 user.lastFetch = Date.now();

@@ -14,7 +14,7 @@ const ResourceSquare = ({ resource, index, view }) => {
   );
 
   return (
-    <div>
+    <div onClick={() => console.log("Display some graph...")}>
       <div
         className='m-1 resource-square'
         style={{ background: `rgb(${r},${g},${b})`, color: "yellow" }}
