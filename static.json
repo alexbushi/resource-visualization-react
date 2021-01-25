@@ -5,7 +5,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://pjm.nuvve.com"
+      "origin": "https://pjm.nuvve.com/api"
     }
   }
 }
