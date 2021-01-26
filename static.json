@@ -4,11 +4,8 @@
     "/**": "index.html"
   },
   "proxies": {
-    "pjm.nuvve.com/api/": {
+    "/api/": {
       "origin": "https://pjm.nuvve.com/api"
-    },
-    "caiso.nuvve.com/api/": {
-      "origin": "https://caiso.nuvve.com/api"
     }
   }
 }
