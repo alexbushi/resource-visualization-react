@@ -22,12 +22,10 @@ const api = ({ dispatch }) => (next) => async (action) => {
   next(action);
 
   try {
-    //const baseUrl = determineBaseURL(rto);
-
     const response = await axios.request({
       //baseURL,
-      //baseURL: baseUrl,
-      baseURL: '',
+      baseURL: determineBaseURL(rto),
+      //baseURL: '',
       url,
       method,
       data,
