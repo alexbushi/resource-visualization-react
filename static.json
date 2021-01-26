@@ -9,6 +9,15 @@
     },
     "/caiso/api/": {
       "origin": "https://caiso.nuvve.com/api"
+    },
+    "/dk/api/": {
+      "origin": "https://aggregator.nuvve.dk/api"
+    },
+    "/fr/api/": {
+      "origin": "https://aggregator.nuvve.fr/api"
+    },
+    "/uk/api/": {
+      "origin": "https://aggregator.nuvve.co.uk/api"
     }
   }
 }

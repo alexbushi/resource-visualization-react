@@ -17,19 +17,19 @@ export const rtoList = [
 export const determineBaseURL = (rto) => {
   let url = '';
   if (rto === rtoList[0].name) {
-    url = 'pjm.nuvve.com';
+    url = '/pjm';
   } else if (rto === rtoList[1].name) {
-    url = 'caiso.nuvve.com';
+    url = '/caiso';
   } else if (rto === rtoList[2].name) {
-    url = 'aggregator.nuvve.dk';
+    url = '/dk';
   } else if (rto === rtoList[3].name) {
-    url = 'aggregator.nuvve.fr';
+    url = '/fr';
   } else if (rto === rtoList[4].name) {
-    url = 'aggregator.nuvve.co.uk';
+    url = '/uk';
   } else {
-    url = 'pjm.nuvve.com';
+    url = '/pjm';
   }
-  return 'https://' + url;
+  return url;
 };
 
 export const percentColorList = [
