@@ -6,6 +6,9 @@
   "proxies": {
     "/pjm/api/": {
       "origin": "https://pjm.nuvve.com/api"
+    },
+    "/caiso/api/": {
+      "origin": "https://caiso.nuvve.com/api"
     }
   }
 }
