@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from './networkCallActions';
-//import { baseURL } from '../../constants';
-import { determineBaseURL } from '../../constants';
+import { baseURL } from '../../constants';
+//import { determineBaseURL } from '../../constants';
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -23,9 +23,8 @@ const api = ({ dispatch }) => (next) => async (action) => {
 
   try {
     const response = await axios.request({
-      //baseURL,
-      baseURL: determineBaseURL(rto),
-      //baseURL: '/caiso',
+      baseURL,
+      //baseURL: determineBaseURL(rto),
       url,
       method,
       data,

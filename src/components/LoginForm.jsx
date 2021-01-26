@@ -1,16 +1,16 @@
-import React from "react";
-import Joi from "joi-browser";
-import Form from "./common/form";
-import { rtoList } from "../constants";
-import { loginUser } from "../store/user";
-import { connect } from "react-redux";
+import React from 'react';
+import Joi from 'joi-browser';
+import Form from './common/form';
+import { rtoList } from '../constants';
+import { loginUser } from '../store/user';
+import { connect } from 'react-redux';
 
 class LoginForm extends Form {
   state = {
     data: {
-      username: "",
-      password: "",
-      rtoName: "",
+      username: '',
+      password: '',
+      rtoName: '',
     },
     rtos: rtoList,
     errors: {},
@@ -18,9 +18,9 @@ class LoginForm extends Form {
   };
 
   schema = {
-    username: Joi.string().required().label("Username"),
-    password: Joi.string().required().label("Password"),
-    rtoName: Joi.string().required().label("RTO"),
+    username: Joi.string().required().label('Username'),
+    password: Joi.string().required().label('Password'),
+    rtoName: Joi.string().required().label('RTO'),
   };
 
   doSubmit = async () => {
@@ -34,7 +34,7 @@ class LoginForm extends Form {
 
     if (this.props.token) {
       // token received so go to home screen
-      this.props.history.push("/resources");
+      this.props.history.push('/resources');
     } else {
       // no token was received so there must be an error
       this.setState({ showErrorMessage: true });
@@ -55,10 +55,10 @@ class LoginForm extends Form {
           <div className='col-4'></div>
           <div className='col-4'>
             <form onSubmit={this.handleSubmit}>
-              {this.renderInput("username", "Username")}
-              {this.renderInput("password", "Password", "password")}
-              {this.renderSelect("rtoName", "RTO", this.state.rtos)}
-              {this.renderButton("Login", this.props.loading)}
+              {this.renderInput('username', 'Username')}
+              {this.renderInput('password', 'Password', 'password')}
+              {this.renderSelect('rtoName', 'RTO/TSO', this.state.rtos)}
+              {this.renderButton('Login', this.props.loading)}
               {this.state.showErrorMessage &&
                 this.renderErrorMessage(this.props.apiErrors)}
             </form>

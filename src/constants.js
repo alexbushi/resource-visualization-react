@@ -15,7 +15,7 @@ export const rtoList = [
 ];
 
 export const determineBaseURL = (rto) => {
-  let url = '';
+  let url;
   if (rto === rtoList[0].name) {
     url = '/pjm';
   } else if (rto === rtoList[1].name) {
