@@ -4,7 +4,7 @@
     "/**": "index.html"
   },
   "proxies": {
-    "/api/": {
+    "/pjm/api/": {
       "origin": "https://pjm.nuvve.com/api"
     }
   }

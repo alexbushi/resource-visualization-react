@@ -25,7 +25,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
     const response = await axios.request({
       //baseURL,
       //baseURL: determineBaseURL(rto),
-      baseURL: '',
+      baseURL: '/pjm',
       url,
       method,
       data,
