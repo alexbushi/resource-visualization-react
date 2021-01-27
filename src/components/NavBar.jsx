@@ -5,6 +5,7 @@ import { loadResources } from '../store/resources';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChargingStation, faCar } from '@fortawesome/free-solid-svg-icons';
 import DragNDrop from './DragNDrop';
+import SettingsButton from './SettingsButton';
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const NavBar = () => {
             <DragNDrop />
           </div>
           <div className='ml-4'>
+            <SettingsButton />
             <button className='btn btn-light ml-3' onClick={() => logout()}>
               Logout
             </button>

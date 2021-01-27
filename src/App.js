@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
@@ -20,20 +20,20 @@ const App = () => {
   });
 
   return (
-    <main >
-        <Provider store={store}>
+    <main>
+      <Provider store={store}>
         <NavBar />
         <Switch>
           <ProtectedRoute path='/settings' component={SettingsView} />
-          <ProtectedRoute path="/resources" component={ResourceView} />
-          <Route path="/test" component={Test}/>
-          <Route path="/not-found" component={NotFound}/>
-          <Route path="/" exact component={LoginForm}/>
-          <Redirect to="/not-found" />
+          <ProtectedRoute path='/resources' component={ResourceView} />
+          <Route path='/test' component={Test} />
+          <Route path='/not-found' component={NotFound} />
+          <Route path='/' exact component={LoginForm} />
+          <Redirect to='/not-found' />
         </Switch>
-        </Provider>
-     </main>
+      </Provider>
+    </main>
   );
-}
+};
 
 export default App;

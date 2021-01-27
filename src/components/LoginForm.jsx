@@ -2,7 +2,7 @@ import React from 'react';
 import Joi from 'joi-browser';
 import Form from './common/form';
 import { rtoList } from '../constants';
-import { loginUser } from '../store/user';
+import { getUserSettings, loginUser } from '../store/user';
 import { connect } from 'react-redux';
 
 class LoginForm extends Form {
@@ -33,7 +33,9 @@ class LoginForm extends Form {
     );
 
     if (this.props.token) {
-      // token received so go to home screen
+      // token received so
+      //await this.props.getUserSettings();
+
       this.props.history.push('/resources');
     } else {
       // no token was received so there must be an error
@@ -79,6 +81,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (user, password, rto) => dispatch(loginUser(user, password, rto)),
+  getUserSettings: () => dispatch(getUserSettings()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
