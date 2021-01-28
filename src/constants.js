@@ -4,33 +4,15 @@ export const loginUrl = '/api/auth';
 export const logoutUrl = '/api/logout';
 export const getSettingsUrl = '/api/settings/get';
 export const setSettingsUrl = '/api/settings/set';
-export const baseURL = 'http://localhost:8010/proxy';
+export const developmentURL = 'http://localhost:8010/proxy';
 
 export const rtoList = [
-  { _id: 0, name: 'PJM' },
-  { _id: 1, name: 'CAISO' },
-  { _id: 2, name: 'Denmark' },
-  { _id: 3, name: 'France' },
-  { _id: 4, name: 'United Kingdom' },
+  { _id: 0, name: 'PJM', url: '/pjm' },
+  { _id: 1, name: 'CAISO', url: '/caiso' },
+  { _id: 2, name: 'Denmark', url: '/dk' },
+  { _id: 3, name: 'France', url: '/fr' },
+  { _id: 4, name: 'United Kingdom', url: '/uk' },
 ];
-
-export const determineBaseURL = (rto) => {
-  let url;
-  if (rto === rtoList[0].name) {
-    url = '/pjm';
-  } else if (rto === rtoList[1].name) {
-    url = '/caiso';
-  } else if (rto === rtoList[2].name) {
-    url = '/dk';
-  } else if (rto === rtoList[3].name) {
-    url = '/fr';
-  } else if (rto === rtoList[4].name) {
-    url = '/uk';
-  } else {
-    url = '/pjm';
-  }
-  return url;
-};
 
 export const percentColorList = [
   { red: 84, green: 48, blue: 5 },

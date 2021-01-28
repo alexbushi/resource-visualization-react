@@ -1,7 +1,19 @@
 import axios from 'axios';
 import * as actions from './networkCallActions';
-//import { baseURL } from '../../constants';
-import { determineBaseURL } from '../../constants';
+import { developmentURL, rtoList } from '../../constants';
+
+const determineBaseURL = (rto) => {
+  let url;
+
+  if (process.env.NODE_ENV === 'development') {
+    url = developmentURL;
+  } else {
+    url = rtoList.find((element) => rto === element.name).url;
+    if (!url) url = rtoList[0].url;
+  }
+
+  return url;
+};
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
@@ -23,7 +35,6 @@ const api = ({ dispatch }) => (next) => async (action) => {
 
   try {
     const response = await axios.request({
-      //baseURL,
       baseURL: determineBaseURL(rto),
       url,
       method,
