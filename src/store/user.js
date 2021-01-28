@@ -55,7 +55,7 @@ const slice = createSlice({
     },
     userRequested: (user, action) => {
       user.loading = true;
-      user.errors = {};
+      user.errors = null;
     },
     userSettingsRetreived: (user, action) => {
       console.log(action.payload.settings);
