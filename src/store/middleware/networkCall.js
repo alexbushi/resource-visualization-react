@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as actions from './networkCallActions';
-import { developmentURL, rtoList } from '../../constants';
+import rtoList from '../../constants/rtos';
+import { developmentURL } from '../../constants/urls';
 
 const determineBaseURL = (rto) => {
   let url;

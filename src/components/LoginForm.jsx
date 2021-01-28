@@ -1,7 +1,7 @@
 import React from 'react';
 import Joi from 'joi-browser';
 import Form from './common/form';
-import { rtoList } from '../constants';
+import { rtoList } from '../constants/rtos';
 import { getUserSettings, loginUser } from '../store/user';
 import { connect } from 'react-redux';
 

@@ -1,24 +1,24 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 import {
   percentColorList,
   temperatureColorList,
   statusColorList,
-} from "../constants";
-import * as viewTypes from "../viewTypes";
-import { useSelector } from "react-redux";
+} from '../../constants/colorLists';
+import * as viewTypes from '../../constants/viewTypes';
+import { useSelector } from 'react-redux';
 
 const Legend = ({ view }) => {
   const maxPower = useSelector((state) => state.entities.resources.maxPower);
 
   const determineLegendValues = () => {
     if (view.name === viewTypes.temperature.name) {
-      return [45, 22.5, 0];
+      return viewTypes.temperature.legendValues;
     } else if (view.name === viewTypes.status.name) {
-      return ["GI", "CH", "NK", "NC", "SLP", "Other"];
+      return viewTypes.status.legendValues;
     } else if (view.name === viewTypes.powerFlowkW.name) {
       return [maxPower, 0, maxPower * -1];
     } else {
-      return [100, 50, 0];
+      return viewTypes.soc.legendValues;
     }
   };
 
@@ -33,9 +33,9 @@ const Legend = ({ view }) => {
   };
 
   const getStyle = () => {
-    if (navigator.userAgent.indexOf("Chrome") > -1)
-      return "d-flex flex-column justify-content-between mb-2 mr-3";
-    return "d-flex flex-column justify-content-between ml-3 mb-2";
+    if (navigator.userAgent.indexOf('Chrome') > -1)
+      return 'd-flex flex-column justify-content-between mb-2 mr-3';
+    return 'd-flex flex-column justify-content-between ml-3 mb-2';
   };
 
   return (
@@ -43,9 +43,9 @@ const Legend = ({ view }) => {
       <div
         className='d-flex flex-row p-2 justify-content-center'
         style={{
-          background: "#5c5952",
-          borderTopLeftRadius: "10px",
-          borderTopRightRadius: "10px",
+          background: '#5c5952',
+          borderTopLeftRadius: '10px',
+          borderTopRightRadius: '10px',
         }}
       >
         {view.units}
@@ -53,9 +53,9 @@ const Legend = ({ view }) => {
       <div
         className='d-flex flex-row justify-content-center pb-2'
         style={{
-          background: "#5c5952",
-          borderBottomLeftRadius: "10px",
-          borderBottomRightRadius: "10px",
+          background: '#5c5952',
+          borderBottomLeftRadius: '10px',
+          borderBottomRightRadius: '10px',
         }}
       >
         <div className='d-flex flex-column justify-content-between align-items-center my-2'>

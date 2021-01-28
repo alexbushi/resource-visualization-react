@@ -2,22 +2,22 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import ResourceSquare from './ResourceSquare';
 import VariableLegend from './Legend';
-//import * as viewTypes from '../viewTypes';
-//import CustomPieChart from './graphs/CustomPieChart';
+import * as viewTypes from '../../constants/viewTypes';
+import CustomPieChart from '../graphs/CustomPieChart';
 
 const ResourceList = ({ view }) => {
   const resources = useSelector((state) => state.entities.resources.list);
 
-  // const statusChartData = [
-  //   {
-  //     name: 'Grid-Integrated',
-  //     value: useSelector((state) => state.entities.resources.GICount),
-  //   },
-  //   {
-  //     name: 'Not Grid-Integrated',
-  //     value: useSelector((state) => state.entities.resources.NonGICount),
-  //   },
-  // ];
+  const statusChartData = [
+    {
+      name: 'Grid-Integrated',
+      value: useSelector((state) => state.entities.resources.GICount),
+    },
+    {
+      name: 'Not Grid-Integrated',
+      value: useSelector((state) => state.entities.resources.NonGICount),
+    },
+  ];
 
   return (
     <Fragment>
@@ -39,12 +39,13 @@ const ResourceList = ({ view }) => {
                 />
               );
             })}
-            {/* {view.name === viewTypes.status.name && (
-              <CustomPieChart
-                data={statusChartData}
-                colors={["#008000", "#808080"]}
-              />
-            )} */}
+            {view.name === viewTypes.status.name &&
+              process.env.NODE_ENV === 'development' && (
+                <CustomPieChart
+                  data={statusChartData}
+                  colors={['#008000', '#808080']}
+                />
+              )}
           </div>
         </div>
       </div>

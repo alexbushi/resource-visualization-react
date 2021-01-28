@@ -1,7 +1,7 @@
 import React from 'react';
 import Joi from 'joi-browser';
-import Form from './common/form';
-import { setUserSettings } from '../store/user';
+import Form from '../common/form';
+import { setUserSettings } from '../../store/user';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 

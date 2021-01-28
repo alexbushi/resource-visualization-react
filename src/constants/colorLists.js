@@ -1,19 +1,3 @@
-export const statusUrl = '/api/get_status';
-export const dataUrl = '/api/ev/data/get';
-export const loginUrl = '/api/auth';
-export const logoutUrl = '/api/logout';
-export const getSettingsUrl = '/api/settings/get';
-export const setSettingsUrl = '/api/settings/set';
-export const developmentURL = 'http://localhost:8010/proxy';
-
-export const rtoList = [
-  { _id: 0, name: 'PJM', url: '/pjm' },
-  { _id: 1, name: 'CAISO', url: '/caiso' },
-  { _id: 2, name: 'Denmark', url: '/dk' },
-  { _id: 3, name: 'France', url: '/fr' },
-  { _id: 4, name: 'United Kingdom', url: '/uk' },
-];
-
 export const percentColorList = [
   { red: 84, green: 48, blue: 5 },
   { red: 140, green: 81, blue: 10 },

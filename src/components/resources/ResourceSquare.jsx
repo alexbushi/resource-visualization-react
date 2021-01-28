@@ -1,8 +1,8 @@
-import React from "react";
-import ReactTooltip from "react-tooltip";
-import calculateColor from "../utils/calculateColor";
-import * as viewTypes from "../viewTypes";
-import { useSelector } from "react-redux";
+import React from 'react';
+import ReactTooltip from 'react-tooltip';
+import calculateColor from '../..//utils/calculateColor';
+import * as viewTypes from '../../constants/viewTypes';
+import { useSelector } from 'react-redux';
 
 const ResourceSquare = ({ resource, index, view }) => {
   const maxPower = useSelector((state) => state.entities.resources.maxPower);
@@ -14,18 +14,18 @@ const ResourceSquare = ({ resource, index, view }) => {
   );
 
   return (
-    <div onClick={() => console.log("Display some graph...")}>
+    <div onClick={() => console.log('Display some graph...')}>
       <div
         className='m-1 resource-square'
-        style={{ background: `rgb(${r},${g},${b})`, color: "yellow" }}
+        style={{ background: `rgb(${r},${g},${b})`, color: 'yellow' }}
         data-tip
         data-for={index.toString()}
       >
-        {resource.resourceStatus === "CH" &&
+        {resource.resourceStatus === 'CH' &&
         (view.name === viewTypes.powerFlowkW.name ||
           view.name === viewTypes.powerFlowPercent.name)
-          ? "C"
-          : ""}
+          ? 'C'
+          : ''}
       </div>
       <ReactTooltip id={index.toString()} place='bottom' effect='solid'>
         <br /> {`EVSE Name: ${resource.evseName}`}

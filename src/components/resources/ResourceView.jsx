@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadResources } from '../store/resources';
+import { loadResources } from '../../store/resources';
 import ResourceList from './ResourceList';
 
 const ResourceView = () => {

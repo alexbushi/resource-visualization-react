@@ -4,8 +4,8 @@ import { logoutUser } from '../store/user';
 import { loadResources } from '../store/resources';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChargingStation, faCar } from '@fortawesome/free-solid-svg-icons';
-import DragNDrop from './DragNDrop';
-import SettingsButton from './SettingsButton';
+import DragNDrop from './common/DragNDrop';
+import SettingsButton from './settings/SettingsButton';
 
 const NavBar = () => {
   const dispatch = useDispatch();

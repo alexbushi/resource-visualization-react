@@ -6,8 +6,8 @@ import {
   logoutUrl,
   getSettingsUrl,
   //setSettingsUrl,
-} from '../constants';
-import * as viewTypes from '../viewTypes';
+} from '../constants/urls';
+import * as viewTypes from '../constants/viewTypes';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Reducer (creates an action also)

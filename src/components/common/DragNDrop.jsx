@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setViewList, toggleView } from "../store/user";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setViewList, toggleView } from '../../store/user';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const DragNDrop = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const DragNDrop = () => {
 
     dragItem.current = params;
     dragNode.current = e.target;
-    dragNode.current.addEventListener("dragend", handleDragEnd);
+    dragNode.current.addEventListener('dragend', handleDragEnd);
 
     setTimeout(() => {
       setDragging(true);
@@ -48,7 +48,7 @@ const DragNDrop = () => {
   const handleDragEnd = (e) => {
     //console.log("Ending drag...");
     setDragging(false);
-    dragNode.current.removeEventListener("dragend", handleDragEnd);
+    dragNode.current.removeEventListener('dragend', handleDragEnd);
     dragItem.current = null;
     dragNode.current = null;
   };
@@ -63,16 +63,16 @@ const DragNDrop = () => {
       currentItem.grpI === params.grpI &&
       currentItem.itemI === params.itemI
     ) {
-      return "dnd-item current";
+      return 'dnd-item current';
     }
-    return "dnd-item";
+    return 'dnd-item';
   };
 
   const getSelectedStyles = (itemI) => {
     if (viewData[0].items[itemI].shouldShow === false) {
-      return "dnd-item";
+      return 'dnd-item';
     }
-    return "dnd-item unselected";
+    return 'dnd-item unselected';
   };
 
   return (
