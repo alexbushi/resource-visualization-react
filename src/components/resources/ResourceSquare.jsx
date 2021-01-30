@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 
 const ResourceSquare = ({ resource, index, view }) => {
   const maxPower = useSelector((state) => state.entities.resources.maxPower);
+  const squareLength = useSelector(
+    (state) => state.entities.user.settings.squareSize
+  );
 
   const { redValue: r, greenValue: g, blueValue: b } = calculateColor(
     resource,
@@ -14,10 +17,15 @@ const ResourceSquare = ({ resource, index, view }) => {
   );
 
   return (
-    <div onClick={() => console.log('Display some graph...')}>
+    <div>
       <div
-        className='m-1 resource-square'
-        style={{ background: `rgb(${r},${g},${b})`, color: 'yellow' }}
+        className='m-1'
+        style={{
+          background: `rgb(${r},${g},${b})`,
+          color: 'yellow',
+          height: `${squareLength}px`,
+          width: `${squareLength}px`,
+        }}
         data-tip
         data-for={index.toString()}
       >

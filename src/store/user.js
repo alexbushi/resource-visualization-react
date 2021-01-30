@@ -34,6 +34,7 @@ const slice = createSlice({
     ],
     settings: {
       refreshRate: 10,
+      squareSize: 32,
     },
     loading: false,
     lastFetch: null,
@@ -63,7 +64,11 @@ const slice = createSlice({
     },
     userSettingsSet: (user, action) => {
       console.log(action.payload);
-      user.settings.refreshRate = parseInt(action.payload);
+      const settings = action.payload;
+      if (settings.refreshRate)
+        user.settings.refreshRate = parseInt(settings.refreshRate);
+      if (settings.squareSize)
+        user.settings.squareSize = parseInt(settings.squareSize);
     },
     userLoggedOut: (user, action) => {
       user.name = '';
@@ -148,7 +153,7 @@ export const getUserSettings = () => (dispatch, getState) => {
   );
 };
 
-export const setUserSettings = (updatedRefreshRate) => (dispatch, getState) => {
+export const setUserSettings = (updatedSettings) => (dispatch, getState) => {
   //const { user, name, token } = getState().entities.user;
 
   //   return dispatch(
@@ -162,7 +167,7 @@ export const setUserSettings = (updatedRefreshRate) => (dispatch, getState) => {
   //     })
   //   );
 
-  return dispatch(userSettingsSet(updatedRefreshRate));
+  return dispatch(userSettingsSet(updatedSettings));
 };
 
 export const setViewList = (newList) => (dispatch) => {

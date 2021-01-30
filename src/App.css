@@ -6,11 +6,6 @@
   font-size: 1.25rem;
 }
 
-.resource-square {
-  height: 32px;
-  width: 32px;
-}
-
 .rotated-text {
   writing-mode: vertical-rl;
   text-orientation: mixed;

@@ -8,20 +8,28 @@ import { withRouter } from 'react-router-dom';
 class SettingsView extends Form {
   state = {
     data: {
-      refreshRate: 10,
+      refreshRate: this.props.refreshRate,
+      squareSize: this.props.squareSize,
     },
     errors: {},
     showErrorMessage: false,
   };
 
   schema = {
-    refreshRate: Joi.number().label('Refresh Rate'),
+    refreshRate: Joi.number().min(2).label('Refresh Rate'),
+    squareSize: Joi.number()
+      .min(10)
+      .max(40)
+      .label('Resource Square Length (pixels)'),
   };
 
   doSubmit = async () => {
     this.setState({ showErrorMessage: false });
 
-    await this.props.setUserSettings(this.state.data.refreshRate);
+    await this.props.setUserSettings({
+      refreshRate: this.state.data.refreshRate,
+      squareSize: this.state.data.squareSize,
+    });
 
     if (this.props.apiErrors) this.setState({ showErrorMessage: true });
     console.log(this.props.apiErrors);
@@ -46,6 +54,10 @@ class SettingsView extends Form {
               {this.renderInput(
                 'refreshRate',
                 `Refersh Rate (s): ${this.props.refreshRate}`
+              )}
+              {this.renderInput(
+                'squareSize',
+                `Resource Square Length (pixels): ${this.props.squareSize}`
               )}
               {this.renderButton('Update', this.props.loading)}
               {this.state.showErrorMessage && this.renderErrorMessage('hello')}
@@ -73,10 +85,11 @@ const mapStateToProps = (state) => ({
   token: state.entities.user.token,
   loading: state.entities.user.loading,
   refreshRate: state.entities.user.settings.refreshRate,
+  squareSize: state.entities.user.settings.squareSize,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setUserSettings: (refreshRate) => dispatch(setUserSettings(refreshRate)),
+  setUserSettings: (settings) => dispatch(setUserSettings(settings)),
 });
 
 export default withRouter(
