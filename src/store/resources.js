@@ -1,4 +1,4 @@
-// Slice of our store
+// Slice of the store
 import { createSlice } from '@reduxjs/toolkit';
 import { apiCallBegan } from './middleware/networkCallActions';
 import { statusUrl, dataUrl } from '../constants/urls';
@@ -12,9 +12,12 @@ const slice = createSlice({
   initialState: {
     evDataList: [],
     list: [],
+    EVNClist: [],
+    showEVNC: false,
     maxPower: 25,
     GICount: 0,
     NonGICount: 0,
+    totalPowerFlow: 0,
     loading: false,
     lastFetch: null,
   },
@@ -30,81 +33,112 @@ const slice = createSlice({
     },
     resourcesReceived: (resources, action) => {
       let result = constructResources(action.payload);
-      resources.list = result.resourceList;
+      resources.list = result.resourceList.filter((resource) => resource.resourceStatus !== 'EV NC');
+      resources.EVNClist = result.resourceList;
       resources.maxPower = result.maxPowerCap;
       resources.GICount = result.GICount;
       resources.NonGICount = result.resourceList.length - result.GICount;
+      resources.totalPowerFlow = result.totalPowerFlow.toFixed(2);
       resources.loading = false;
       resources.lastFetch = Date.now();
     },
+    resourceToggledEVNC: (resources, action) => {
+      resources.showEVNC = !resources.showEVNC;
+    }
   },
 });
+
+const notReportingEVData = {
+  t_cell_avg: 'Not Known',
+  t_cell_max: 'Not Known',
+  t_cell_min: 'Not Known',
+};
+
+const noConnectedEV = {
+  vin: 'No EV Connected',
+  car_name: 'No EV Connected',
+  primary_status: 'EV NC',
+  soc: 'No EV Connected',
+  power_capacity_up: 'No EV Connected'
+}
 
 const calculatePercentPower = (ev, evse) => {
   let powerFlowPercent = 0;
 
-  if (evse.power_flow_real_kw === '' || ev.power_capacity_up === '') {
-    powerFlowPercent = 0;
-    ev.power_capacity_up = 0;
-  } else {
-    powerFlowPercent = Math.round(
-      Math.abs(evse.power_flow_real_kw / ev.power_capacity_up) * 100
-    );
-    if (isNaN(powerFlowPercent)) {
+  if (ev) {
+    if (evse.power_flow_real_kw === '' || ev.power_capacity_up === '') {
       powerFlowPercent = 0;
       ev.power_capacity_up = 0;
+    } else {
+      powerFlowPercent = Math.round(
+        Math.abs(evse.power_flow_real_kw / ev.power_capacity_up) * 100
+      );
+      if (isNaN(powerFlowPercent)) {
+        powerFlowPercent = 0;
+        ev.power_capacity_up = 0;
+      }
+      if (powerFlowPercent > 100) powerFlowPercent = 100;
+      if (powerFlowPercent < 0) powerFlowPercent = 0;
     }
-    if (powerFlowPercent > 100) powerFlowPercent = 100;
-    if (powerFlowPercent < 0) powerFlowPercent = 0;
+
+    return powerFlowPercent;
+  } else {
+    return 'No EV Connected'
   }
 
-  return powerFlowPercent;
 };
 
 const findEVData = (payload, evse) => {
-  let evData;
-  let notReportingEVData = {
-    t_cell_avg: 'Not Reporting',
-    t_cell_max: 'Not Reporting',
-    t_cell_min: 'Not Reporting',
-  };
-  try {
-    evData = payload.stateData.find((data) => data.name === evse.car_name);
-    if (evData.t_cell_avg === '') {
-      return notReportingEVData;
-    } else {
-      return evData;
-    }
-  } catch (error) {
+
+  let evData = payload.stateData.find((data) => data.name === evse.car_name);
+
+  if (!evData) return notReportingEVData;
+
+  if (evData.t_cell_avg === '') {
     return notReportingEVData;
+  } else {
+    return evData;
   }
 };
 
 const constructResources = (payload) => {
   let maxPowerCap = -1;
   let GICount = 0;
+  let totalPowerFlow = 0.00;
+  let pf = 0.0;
+  let evData;
+  let ev;
 
-  // 1) Find evses that are peer connected AND vin connected is not null
-  const peerConnectedEvsesList = payload.data.evses_log.filter(
-    (evse) => evse.peer_connected === 'true' && evse.vin !== ''
-  );
-
-  // 2) For each evse found above, find the connected car
-  const resourceList = peerConnectedEvsesList.map((evse) => {
-    const ev = payload.data.cars_log.find(
-      (car) => car.car_name === evse.car_name
-    );
-
-    // For every connected car find the data for it
-    let evData = findEVData(payload, evse);
-
-    // Calculate new maxPowerCap, based on current resource
-    if (parseFloat(maxPowerCap) < parseFloat(ev.power_capacity_up)) {
-      maxPowerCap = ev.power_capacity_up;
+  // For each evse, find the connected car
+  const resourceList = payload.data.evses_log.map((evse) => {
+    if (evse.vin === '') {
+      ev = noConnectedEV;
+      evData = notReportingEVData;
     }
+    else {
+      ev = payload.data.cars_log.find(
+        (car) => car.car_name === evse.car_name
+      );
 
-    // Keep track of how many GI resources there are
-    if (ev.primary_status === 'GI') GICount++;
+      // Find the car data, if it exists
+      evData = findEVData(payload, evse);
+
+      // Calculate new maxPowerCap
+      if (parseFloat(maxPowerCap) < parseFloat(ev.power_capacity_up)) {
+        maxPowerCap = ev.power_capacity_up;
+      }
+
+      // Keep track of how many GI resources there are
+      if (ev.primary_status === 'GI') GICount++;
+
+      // Some evs (lion hq buses) were reporting a soc > 100
+      if (ev.soc > 100) ev.soc = 100;
+      ev.soc = Math.round(ev.soc)
+
+      // Keep track of total power flow
+      if (evse.power_flow_real_kw !== '') pf = parseFloat(evse.power_flow_real_kw)
+      if ((ev.primary_status === 'GI' || ev.primary_status === 'SLP') && evse.power_flow_real_kw !== '') totalPowerFlow = totalPowerFlow + pf;
+    }
 
     return {
       evseId: evse.evse_id,
@@ -112,7 +146,7 @@ const constructResources = (payload) => {
       evseName: evse.name,
       evName: ev.car_name,
       resourceStatus: ev.primary_status,
-      soc: Math.round(ev.soc),
+      soc: ev.soc,
       realPower: evse.power_flow_real_kw,
       powerFlowPercent: calculatePercentPower(ev, evse),
       maxPowerCapacity: ev.power_capacity_up,
@@ -122,7 +156,7 @@ const constructResources = (payload) => {
     };
   });
 
-  return { resourceList, maxPowerCap: Math.ceil(maxPowerCap), GICount };
+  return { resourceList, maxPowerCap: Math.ceil(maxPowerCap), GICount, totalPowerFlow };
 };
 
 const {
@@ -130,6 +164,7 @@ const {
   resourcesRequested,
   resourcesReceived,
   evDataReceived,
+  resourceToggledEVNC
 } = slice.actions;
 
 export default slice.reducer;
@@ -161,4 +196,8 @@ export const loadResources = () => async (dispatch, getState) => {
       stateData: getState().entities.resources.evDataList,
     })
   );
+};
+
+export const togleShowEVNC = () => (dispatch) => {
+  return dispatch(resourceToggledEVNC());
 };

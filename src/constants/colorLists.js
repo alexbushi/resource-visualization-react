@@ -25,10 +25,11 @@ export const temperatureColorList = [
 ];
 
 export const statusColorList = [
-  { red: 230, green: 0, blue: 0 },
-  { red: 179, green: 240, blue: 255 },
-  { red: 128, green: 128, blue: 128 },
-  { red: 128, green: 128, blue: 128 },
-  { red: 153, green: 102, blue: 51 },
-  { red: 0, green: 128, blue: 0 },
+  { red: 230, green: 0, blue: 0 }, // Other
+  { red: 201, green: 196, blue: 195 }, // EV NC
+  { red: 0, green: 186, blue: 0 }, // SLP
+  { red: 128, green: 128, blue: 128 }, // NC
+  { red: 128, green: 128, blue: 128 }, // NK
+  { red: 0, green: 129, blue: 247 }, // CH
+  { red: 0, green: 128, blue: 0 }, // GI
 ];

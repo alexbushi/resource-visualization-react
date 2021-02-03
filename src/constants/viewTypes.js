@@ -25,5 +25,5 @@ export const status = {
   name: 'Status',
   units: '',
   shouldShow: true,
-  legendValues: ['GI', 'CH', 'NK', 'NC', 'SLP', 'Other'],
+  legendValues: ['GI', 'CH', 'NK', 'NC', 'SLP', 'EV NC', 'Other'],
 };

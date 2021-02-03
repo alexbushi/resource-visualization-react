@@ -31,8 +31,12 @@ class SettingsView extends Form {
       squareSize: this.state.data.squareSize,
     });
 
-    if (this.props.apiErrors) this.setState({ showErrorMessage: true });
-    console.log(this.props.apiErrors);
+    if (this.props.apiErrors) {
+      this.setState({ showErrorMessage: true });
+      console.log(this.props.apiErrors);
+    } else {
+      this.props.history.push('/resources');
+    }
   };
 
   render() {
@@ -41,39 +45,44 @@ class SettingsView extends Form {
         <div className='row mb-4'>
           <div className='col-3'></div>
           <div className='col-6'>
-            <h1 className='d-flex justify-content-center'>
-              Settings *Not yet fully implemented*
-            </h1>
+            <h1 className='d-flex justify-content-center'>Settings</h1>
           </div>
           <div className='col-3'></div>
         </div>
         <div className='row'>
-          <div className='col-5'></div>
-          <div className='col-2'>
+          <div className='col-4'></div>
+          <div className='col-4'>
             <form onSubmit={this.handleSubmit}>
-              {this.renderInput(
-                'refreshRate',
-                `Refersh Rate (s): ${this.props.refreshRate}`
-              )}
-              {this.renderInput(
-                'squareSize',
-                `Resource Square Length (pixels): ${this.props.squareSize}`
-              )}
-              {this.renderButton('Update', this.props.loading)}
-              {this.state.showErrorMessage && this.renderErrorMessage('hello')}
+              <div className='row'>
+                <div className='col-3'></div>
+                <div className='col-6'>
+                  {this.renderInput(
+                    'refreshRate',
+                    `Refersh Rate (s): ${this.props.refreshRate}`
+                  )}
+                  {this.renderInput(
+                    'squareSize',
+                    `Resource Square Length (pixels): ${this.props.squareSize}`
+                  )}
+                </div>
+                <div className='col-3'></div>
+              </div>
+              <div className='row justify-content-center mt-2'>
+                {this.renderButton('Update', this.props.loading)}
+                <button
+                  className='btn btn-light ml-2'
+                  onClick={() => {
+                    this.props.history.push('/resources');
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+
+              {this.state.showErrorMessage && this.renderErrorMessage('error')}
             </form>
           </div>
-          <div className='col-5'></div>
-        </div>
-        <div className='row mt-5 justify-content-center'>
-          <button
-            className='btn btn-light'
-            onClick={() => {
-              this.props.history.push('/resources');
-            }}
-          >
-            Done
-          </button>
+          <div className='col-4'></div>
         </div>
       </div>
     );
