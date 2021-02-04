@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../store/user';
-import { loadResources, togleShowEVNC } from '../store/resources';
+import { loadResources } from '../store/resources';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChargingStation, faCar } from '@fortawesome/free-solid-svg-icons';
 import DragNDrop from './common/DragNDrop';
@@ -17,8 +17,10 @@ const NavBar = () => {
   const loadingResources = useSelector(
     (state) => state.entities.resources.loading
   );
+  const constructingResources = useSelector(
+    (state) => state.entities.resources.constructing
+  );
   const currentRto = useSelector((state) => state.entities.user.rto);
-  const showEVNC = useSelector((state) => state.entities.resources.showEVNC);
 
   const logout = () => {
     dispatch(logoutUser());
@@ -29,30 +31,19 @@ const NavBar = () => {
     dispatch(loadResources());
   };
 
-  const getEVNCLabel = () => {
-    return showEVNC ? 'Hide EV NC Resources' : 'Show EV NC Resources';
-  };
-
   const showNavBarItems = () => {
     if (token) {
       return (
         <Fragment>
           <button className='btn btn-light ml-2' onClick={() => update()}>
-            {loadingResources ? 'Updating' : 'Update'}
+            {loadingResources ? 'Fetching' : 'Update'}
+            {constructingResources ? 'Constructing' : ''}
             {loadingResources && (
               <div
                 className='spinner-border ml-2 spinner-border-sm'
                 role='status'
-              >
-                <span className='sr-only'>Loading...</span>
-              </div>
+              ></div>
             )}
-          </button>
-          <button
-            className='btn btn-light ml-2'
-            onClick={() => dispatch(togleShowEVNC())}
-          >
-            {getEVNCLabel()}
           </button>
           <div className='ml-auto'>
             <DragNDrop />

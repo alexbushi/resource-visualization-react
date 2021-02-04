@@ -32,7 +32,7 @@ const ResourceList = ({ view }) => {
 
   const determineVariableTitle = () => {
     if (view.name === viewTypes.powerFlowkW.name) {
-      return view.name + ' = ' + totalPowerFlow;
+      return view.name + ', Dispatch Total = ' + totalPowerFlow + ' kW';
     } else {
       return view.name;
     }

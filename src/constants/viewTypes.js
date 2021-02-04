@@ -1,22 +1,22 @@
 export const powerFlowkW = {
-  name: 'Power Flow kW',
+  name: 'Power Flow (kW)',
   units: 'kW',
   shouldShow: true,
 };
 export const powerFlowPercent = {
-  name: 'Power Flow %',
+  name: 'Power Flow (abs %)',
   units: 'abs (%)',
   shouldShow: true,
   legendValues: [100, 50, 0],
 };
 export const soc = {
-  name: 'SOC',
+  name: 'SOC (%)',
   units: '%',
   shouldShow: true,
   legendValues: [100, 50, 0],
 };
 export const temperature = {
-  name: 'Temperature',
+  name: 'Temperature (°C)',
   units: '°C',
   shouldShow: true,
   legendValues: [45, 22.5, 0],

@@ -19,6 +19,7 @@ const slice = createSlice({
     NonGICount: 0,
     totalPowerFlow: 0,
     loading: false,
+    constructing: false,
     lastFetch: null,
   },
   reducers: {
@@ -32,14 +33,18 @@ const slice = createSlice({
       resources.evDataList = action.payload.data;
     },
     resourcesReceived: (resources, action) => {
+      resources.loading = false;
+
+      resources.constructing = true;
       let result = constructResources(action.payload);
       resources.list = result.resourceList.filter((resource) => resource.resourceStatus !== 'EV NC');
       resources.EVNClist = result.resourceList;
+      resources.constructing = false;
+
       resources.maxPower = result.maxPowerCap;
       resources.GICount = result.GICount;
       resources.NonGICount = result.resourceList.length - result.GICount;
       resources.totalPowerFlow = result.totalPowerFlow.toFixed(2);
-      resources.loading = false;
       resources.lastFetch = Date.now();
     },
     resourceToggledEVNC: (resources, action) => {
@@ -105,7 +110,7 @@ const constructResources = (payload) => {
   let maxPowerCap = -1;
   let GICount = 0;
   let totalPowerFlow = 0.00;
-  let pf = 0.0;
+  let powerFlow = 0.0;
   let evData;
   let ev;
 
@@ -136,8 +141,8 @@ const constructResources = (payload) => {
       ev.soc = Math.round(ev.soc)
 
       // Keep track of total power flow
-      if (evse.power_flow_real_kw !== '') pf = parseFloat(evse.power_flow_real_kw)
-      if ((ev.primary_status === 'GI' || ev.primary_status === 'SLP') && evse.power_flow_real_kw !== '') totalPowerFlow = totalPowerFlow + pf;
+      if (evse.power_flow_real_kw !== '') powerFlow = parseFloat(evse.power_flow_real_kw)
+      if ((ev.primary_status === 'GI' || ev.primary_status === 'SLP') && evse.power_flow_real_kw !== '') totalPowerFlow = totalPowerFlow + powerFlow;
     }
 
     return {
@@ -198,6 +203,6 @@ export const loadResources = () => async (dispatch, getState) => {
   );
 };
 
-export const togleShowEVNC = () => (dispatch) => {
+export const toggleShowEVNC = () => (dispatch) => {
   return dispatch(resourceToggledEVNC());
 };
